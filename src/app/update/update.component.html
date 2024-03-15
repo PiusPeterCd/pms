@@ -1,0 +1,23 @@
+<div style="background-color: rgba(244, 238, 250, 0.733);">
+    <mat-card style="background-color: rgb(228, 222, 250); margin-top: 20px ; padding: 10px;">
+        <mat-card-header>
+            <mat-card-title>FAMILY UNIT</mat-card-title>
+            <mat-card-subtitle>Add or delete family unit. Also modify unit details</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions>
+            <button style="margin-right:10px;" mat-raised-button color="primary" (click)="onAdd()">ADD NEW</button>
+            <button  mat-raised-button color="primary"  (click)="onUpdate()">UPDATE</button>
+          </mat-card-actions>
+    </mat-card>
+    <mat-card style="background-color: rgb(228, 222, 250); margin-top: 20px ; padding: 10px;">
+        <mat-card-header>
+            <mat-card-title>FAMILY </mat-card-title>
+            <mat-card-subtitle>Add a new family or edit details of a family. Also remove a family from the respective unit.</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions>
+            <a style="margin-right:10px;" mat-raised-button href="/addunit" color="primary">ADD NEW</a>
+            <a style="margin-right:10px;" mat-raised-button href="/updateunit" color="primary">UPDATE</a>
+            <a  mat-raised-button color="primary">DELETE</a>
+          </mat-card-actions>
+    </mat-card>
+</div>

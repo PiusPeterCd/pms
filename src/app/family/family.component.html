@@ -1,0 +1,79 @@
+<div style="padding: 20px;">
+  <h1 style="    text-transform: capitalize;
+  background-color: #2a557b;
+  padding: 10px 20px;
+  color: #fff;">{{family.name}} Family</h1>
+  <div style="padding-left: 20px;">
+  <div>FAMILY ID <b>{{family.id}}</b> . {{family.name}} {{family.family_head_name}}'s family consist of {{family.no_of_members}} members</div>
+  <div>Joined our parish from {{family.joined_on}}</div>
+  <div>Residing at: {{family.address}}</div>
+</div>
+
+  <h2 style="padding: 10px 20px;"><mat-icon>people</mat-icon> Family Members</h2>
+  <mat-tab-group style="padding: 0px 40px;">
+    <mat-tab label="Basic Info"> 
+     
+        @for (item of family.members; track item; let index = $index) {
+          <div style="position: relative;">
+          <img style="width: 80px;height:80px; border:1px solid black;position: absolute;top:20px" src="{{item.photo_url}}"/>
+        <div style="padding: 10px;margin-left:100px">
+         
+          <div class="name">{{item.id}} - {{item.name}}</div>
+          <div><span class="label">Date of Birth <mat-icon style="    width: 16px;
+            font-size: 14px;
+            height: 13px;">event_available</mat-icon></span> {{item.dob}}</div>
+          <div><span class="label">contact <mat-icon style="    width: 16px;
+            font-size: 14px;
+            height: 13px;">phone_in_talk</mat-icon></span> {{item.phone}} | {{item.mail}}</div>
+          <div><span class="label">Gender : </span> {{item.gender}}</div>
+          <div><span class="label">Father, </span> {{item.father}}</div>
+          <div><span class="label">Mother, </span> {{item.mother}}</div>
+        </div>
+        </div>
+        <mat-divider></mat-divider>
+      }
+     
+    </mat-tab>
+    <mat-tab label="Parish Records"> 
+      @for (item of family.members; track item; let index = $index) {
+      <div style="padding:10px 20px">
+        <div class="name">{{item.name}}</div>
+        <br/>
+        <div><div class="label"><mat-icon>child_care</mat-icon> Baptism</div>  {{item.baptized_date}} | at {{item.baptized_parish}}</div>
+        <br/>
+        <div><div class="label"><mat-icon>event_note</mat-icon> Confirmation </div> {{item.confirmation_date}} | at {{item.confirmation_parish}}</div>
+        <br/>
+        @if (item.marital_status=='Married'){
+        <div><div  class="label"><mat-icon>wc</mat-icon> Marriage</div> on {{item.marriage_date}}, with {{item.spouce_name}} at {{item.marriage_parish}}</div>
+        <br/>
+        }
+        @if (item.parish_association.length>0){
+        <div><div class="label"><mat-icon>people_outline</mat-icon> Associated with Parish in </div> 
+          <mat-chip-listbox aria-label="Fish selection">
+            @for (ass of item.parish_association; track ass;){
+            <mat-chip-option>{{ass}}</mat-chip-option>
+          }
+            </mat-chip-listbox>
+
+        </div>
+      }
+       
+      </div>
+      <mat-divider></mat-divider>
+    } </mat-tab>
+    <mat-tab label="Other Info"> 
+      @for (item of family.members; track item; let index = $index) {
+        <div style="padding:10px 20px">
+          <div class="name">{{item.name}}</div>
+          <br/>
+          <div><div class="label"><mat-icon>school</mat-icon> Education</div>  {{item.education_status}}, {{item.qualification}}</div>
+         <br/>
+          <div><div class="label"><mat-icon>location_city</mat-icon> Occupation</div>  {{item.job}}</div>
+          </div>
+          <mat-divider></mat-divider>
+        }
+    </mat-tab>
+  </mat-tab-group>
+ 
+</div>
+

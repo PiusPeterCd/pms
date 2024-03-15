@@ -1,0 +1,44 @@
+<div style="margin-left: 10%;">
+    <h1>Add New Family</h1>
+    <div>
+        <mat-form-field>
+            <mat-label>Select Block</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+            <mat-hint align="end">Block in which family should belong</mat-hint>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Select Unit</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+            <mat-hint align="end">Family unit (BCC) in which family should belong</mat-hint>
+          </mat-form-field>
+          <p>Family Details</p>
+    
+          <mat-form-field>
+            <mat-label> What is the family name?</mat-label>
+            <input matInput #input placeholder="Family name">
+            <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>When did family Joined parish?</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    </div>
+    <p>ADD MEMBERS  <button (click)="onAdd()" style="margin-left:60px;" mat-fab color="primary">
+        <mat-icon>person_add</mat-icon>
+      </button></p>
+    <mat-list role="list">
+        <mat-list-item role="listitem">Item 1</mat-list-item>
+    </mat-list>
+   
+      
+</div>

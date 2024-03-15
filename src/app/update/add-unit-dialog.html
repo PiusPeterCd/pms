@@ -1,0 +1,37 @@
+<div style="min-width: 400px;">
+<h2 style="text-align: center;
+font-size: 23px;
+color: purple;" mat-dialog-title>ADD NEW</h2>
+<mat-dialog-content style="width: 100%;">
+  <p stle="font-size: 14px;">Add the details of the new unit</p>
+  <form (ngSubmit)="onNoClick()" #unitForm="ngForm">
+    <div class="form-group">
+  <mat-form-field style="width: 100%;">
+    <mat-label>Name</mat-label>
+    <input matInput  id="name"
+    required
+    [(ngModel)]="unit.name" name="name"
+    #name="ngModel">
+   
+  </mat-form-field>
+  <div [hidden]="name.valid || name.pristine"
+    class="alert alert-danger">
+    Name is required
+    </div>
+    <br>
+    <mat-form-field style="width: 100%;">
+        <mat-label>Block</mat-label>
+    <mat-select [(value)]="unit.block_no">
+        @for (block of blocks; track block) {
+          <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button style="margin-left:20px" mat-button cdkFocusInitial (click)="onNoClick()">Save</button>
+  <button mat-button [mat-dialog-close] >cancel</button>
+</mat-dialog-actions>
+</div>

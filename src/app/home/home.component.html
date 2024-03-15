@@ -1,0 +1,24 @@
+<div style="padding:0px 50px">
+    <div style="height: 100px; background-color: #da7029;">
+        <p class="header">Mount Carmel Church, Mamangalam</p>
+        <img style="    width: 133px;
+        position: absolute;
+        top: 100px;
+        right: 0;" src="/assets/church.jpg"/>
+         <img style="height: 100px;
+         width: 100px;
+         position: absolute;
+         top: 100px;" src="/assets/sddefault.jpg"/>
+    </div>
+    <mat-tab-group dynamicHeight>
+        <mat-tab label="VIEW FAMILY"> 
+            <ng-template matTabContent>
+               <app-view></app-view>
+              </ng-template>
+        </mat-tab>
+        <mat-tab label="UPDATE FAMILY"> 
+            <ng-template matTabContent>
+                <app-update></app-update>
+               </ng-template> </mat-tab>
+    </mat-tab-group>
+</div>

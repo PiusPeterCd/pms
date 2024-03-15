@@ -1,0 +1,124 @@
+{
+    "id":"31",
+    "name":"St Francis Assisi",
+    "block":"3",
+    "leaders":[{
+        "member_id":"11234",
+        "name":"Angel Corea",
+        "position":"Leader",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"Ambattu"
+    },{
+        "member_id":"11234",
+        "name":"George CS",
+        "position":"Assistant Leader",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"cheriyakumaroth"
+    },{
+        "member_id":"11234",
+        "name":"Daisy Joshy",
+        "position":"Secretory",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"cheriyakumaroth"
+    },{
+        "member_id":"11234",
+        "name":"Ingnacious Layola",
+        "position":"Joint Secretory",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"cheriyakumaroth"
+    },{
+        "member_id":"11234",
+        "name":"Rose Mary",
+        "position":"Treasurer",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"cheriyakumaroth"
+    }],
+    "coordinators":[{
+        "member_id":"11234",
+        "name":"George CS",
+        "position":"Pastrol Ministry",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"cheriyakumaroth"
+    },{
+        "member_id":"11234",
+        "name":"Ingnacious Layola",
+        "position":"Family Ministry",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"cheriyakumaroth"
+    },{
+        "member_id":"11234",
+        "name":"Prince",
+        "position":"Social Ministry",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"Pallikkal"
+    },{
+        "member_id":"11234",
+        "name":"Mary Shiji",
+        "position":"Education Ministry",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"Pallath"
+    },{
+        "member_id":"11234",
+        "name":"Christila Antony",
+        "position":"Youth Ministry",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"cheriyakumaroth"
+    },{
+        "member_id":"11234",
+        "name":"Victoria",
+        "position":"Laity Ministry",
+        "photourl":"/assets/person.jpg",
+        "phone":"+914567890098",
+        "mail":"fff@gmail.com",
+        "family":"Veluthedath"
+    }],
+    "no_of_members":"114",
+    "no_of_family":"27",
+    "no_of_male":"50",
+    "no_of_female":"50",
+    "no_of_children":"13",
+    "no_of_youth":"9",
+    "families":[{
+        "id":"3101",
+        "name":"Cheriyakumaroth",
+        "family_head":"Pius",
+        "no_of_members":"3"
+    },{
+        "id":"3102",
+        "name":"Cheriyakumaroth",
+        "family_head":"Pius",
+        "no_of_members":"3"
+    },{
+        "id":"3103",
+        "name":"Cheriyakumaroth",
+        "family_head":"Pius",
+        "no_of_members":"3"
+    },{
+        "id":"3104",
+        "name":"Cheriyakumaroth",
+        "family_head":"Pius",
+        "no_of_members":"3"
+    }]
+   
+     
+}

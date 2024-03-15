@@ -1,0 +1,118 @@
+<div style="padding: 20px;">
+
+<!-- <mat-grid-list cols="4"  >
+        
+  <mat-grid-tile
+    colspan="2" rowspan="1"
+    > -->
+<div style="width: 60%;">
+  <p class="heading_section">Our Families</p>
+<cdk-accordion class="example-accordion">
+    @for (item of blocks; track item; let index = $index) {
+      <cdk-accordion-item
+        #accordionItem="cdkAccordionItem"
+        class="example-accordion-item"
+        role="button"
+        tabindex="0"
+        [attr.id]="'accordion-header-' + index"
+        [attr.aria-expanded]="accordionItem.expanded"
+        [attr.aria-controls]="'accordion-body-' + index">
+        <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+          Block -{{ item.block_id }} {{item.block_name}}
+          <span class="example-accordion-item-description">
+            Click to {{ accordionItem.expanded ? 'close' : 'open' }}
+          </span>
+        </div>
+        <div
+          class="example-accordion-item-body"
+          role="region"
+          [style.display]="accordionItem.expanded ? '' : 'none'"
+          [attr.id]="'accordion-body-' + index"
+          [attr.aria-labelledby]="'accordion-header-' + index">
+          <p> {{item.block_name}} block consist of <b>{{item.no_of_family}}</b> families with total <b>{{item.no_of_members}}</b> members. 
+            There are <b>{{item.no_of_male}} Men</b> and <b>{{item.no_of_female}} Women</b> members. <b>{{item.no_of_youth}}</b> members belongs to Youth group
+             and sufficient with <b>{{item.no_of_children}}</b> children.
+          </p>
+          <p style="font-size: 16px;color: brown;
+          font-weight: 500;
+      ">
+      Block Leadership:</p>
+          <ul>
+            @for(leader of item.leaders; track leader; let index = $index){
+            <li><span style="font-weight: 500;">{{leader.position}}</span> : {{leader.name}}, {{leader.family}}</li>
+            }
+            </ul>
+            <p style=" font-size: 16px;color: brown;
+            font-weight: 500;
+        ">Block Coordinators:</p>
+            <ul>
+            @for(coordinator of item.coordinators; track coordinator; let index = $index){
+              <li><span style="font-weight: 500;">{{coordinator.position}}</span> : {{coordinator.name}}, {{coordinator.family}}</li>
+            }
+          </ul>
+          <p style="font-size: 16px;color: brown;
+          font-weight: 500;
+      ">Family units (BCC):</p>
+          <ol style="margin:0;" >
+            @for(unit of item.units; track unit; let index = $index){
+            <li>
+              <a href="/details/{{unit.id}}" >{{unit.name}}</a></li>
+            }
+          </ol>
+        </div>
+      </cdk-accordion-item>
+    }
+  </cdk-accordion>
+</div>
+  <!-- </mat-grid-tile>
+  <mat-grid-tile
+  colspan="2"
+  rowspan="4"
+  > -->
+<div style="width: 40%;width: 40%;
+position: absolute;
+right: 0;
+top: 20px;">
+  <p  class="heading_section">Our Leadership</p>
+  <div class="section" >
+    <div class="section_div">
+    <div style="color:white;background-color: rgb(177, 69, 69);text-align: center;">Parish Vicar </div>
+    <p style="padding-top: 15px;height: 60px;">
+    <span>
+    <img width="50px" style="top:30px" src="{{parish.vicar_photo_url}}" alt="">
+    <span class="name" style="font-weight: 500;">{{parish.vicar}}</span>
+    </span>
+   </p>
+   </div>
+   <p style="color:white;background-color: rgb(177, 69, 69);text-align: center;">Central Commitee</p>
+   @for (item of parish.leaders; track item; let index = $index) {
+    <div class="section_div">
+    <div class="heading">{{item.position}} </div>
+    <p>
+      <span>
+    <img width="50px" src="{{item.photourl}}" alt="">
+    <span class="name">{{item.name}}, {{item.family}}</span>
+    <br/><span style="color:grey;font-size: 12px;">{{item.phone}} | {{item.mail}}</span>
+  </span>
+   </p>
+  </div>
+   }
+   <p style="color:white;background-color: rgb(177, 69, 69);text-align: center;">Ministry Coordinators</p>
+   @for (item of parish.coordinators; track item; let index = $index) {
+  <div class="section_div">
+    <div class="heading">{{item.position}} </div>
+    <p>
+    <span style="padding-bottom:10px ;">
+    <img width="50px" src="{{item.photourl}}" alt="">
+    <span class="name">{{item.name}}, {{item.family}}</span>
+    <br/><span style="color:grey;font-size: 12px;">{{item.phone}} | {{item.mail}}</span>
+  </span>
+   </p>
+   </div>
+   }
+
+    </div>
+</div>
+<!-- </mat-grid-tile>
+</mat-grid-list> -->
+</div>

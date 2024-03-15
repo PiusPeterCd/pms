@@ -1,0 +1,51 @@
+<div style="min-width: 400px;">
+    <h2 style="text-align: center;
+    font-size: 23px;
+    color: purple;" mat-dialog-title>ADD NEW</h2>
+    <mat-dialog-content style="width: 100%;">
+        <mat-stepper [linear]="false" #stepper>
+            <mat-step [stepControl]="firstFormGroup" [editable]="true">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Basic Info</ng-template>
+                    <mat-form-field>
+                        <mat-label> Name</mat-label>
+                        <input matInput #input placeholder=" name">
+                    </mat-form-field>
+                  
+                 
+                        <mat-radio-group aria-label="Gender">
+                            <mat-radio-button value="M">Male</mat-radio-button>
+                            <mat-radio-button value="F">Female</mat-radio-button>
+                          </mat-radio-group>
+                    
+         
+        </form>
+        </mat-step>
+       
+        <mat-step [stepControl]="secondFormGroup" [editable]="true">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Parish Records</ng-template>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="true">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Parish Association</ng-template>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="true">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Contact</ng-template>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="true">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Education & Occupation</ng-template>
+            </form>
+        </mat-step>
+          </mat-stepper>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button style="margin-left:20px" mat-button cdkFocusInitial (click)="onNoClick()">Save</button>
+      <button mat-button [mat-dialog-close] >cancel</button>
+    </mat-dialog-actions>
+    </div>
