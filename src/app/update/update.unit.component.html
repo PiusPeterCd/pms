@@ -7,36 +7,30 @@
      
         <div class="form-group">
             <mat-form-field style="width: 100%;">
-                <mat-label>Unit Name</mat-label>
-            <mat-select [(value)]="unit.block_no">
-                @for (block of blocks; track block) {
-                  <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
+                <mat-label>Unit Name </mat-label>
+            <mat-select  >
+                @for (unit of units; track unit) {
+                  <mat-option  (onSelectionChange)="onSelectChange($event)" [value]="unit.id">{{unit.name}}</mat-option>
                 }
               </mat-select>
               </mat-form-field>
         </div>
+       
               <hr/>
     <div>
     <form (ngSubmit)="onNoClick()" #unitForm="ngForm">
-      <mat-form-field style="width: 100%;">
-        <mat-label>Name</mat-label>
-        <input matInput  id="name"
-        disabled
-        [(ngModel)]="unit.name" name="name"
-        #name="ngModel">
-      </mat-form-field>
-        <br>
+      
         <mat-form-field>
-        <mat-label>Block</mat-label>
-        <input matInput  id="name"
+        <mat-label>Block Number</mat-label>
+        <input matInput  id="block" value="{{selectedunit.block_no}}"
         disabled
-        [(ngModel)]="unit.name" name="name"
-        #name="ngModel">
+        name="block_no"
+        >
       </mat-form-field>
       <br>
         <mat-form-field style="width: 100%;">
             <mat-label>President</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }
@@ -45,7 +39,7 @@
         <br>
         <mat-form-field style="width: 100%;">
             <mat-label>Secretory</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }
@@ -54,7 +48,7 @@
         <br>
         <mat-form-field style="width: 100%;">
             <mat-label>Treasurer</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }
@@ -64,7 +58,7 @@
         <p>Animators</p>
         <mat-form-field style="width: 100%;">
             <mat-label>Youth</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }
@@ -72,7 +66,7 @@
         </mat-form-field>
         <mat-form-field style="width: 100%;">
             <mat-label>Education</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }
@@ -81,7 +75,7 @@
         <br>
         <mat-form-field style="width: 100%;">
             <mat-label>Family (kudumbapreshitham)</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }
@@ -89,7 +83,7 @@
         </mat-form-field>
         <mat-form-field style="width: 100%;">
             <mat-label>Liturgy</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }
@@ -98,7 +92,7 @@
         <br>
         <mat-form-field style="width: 100%;">
             <mat-label>Social</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }
@@ -106,7 +100,7 @@
         </mat-form-field>
         <mat-form-field style="width: 100%;">
             <mat-label>Ajapalanam</mat-label>
-        <mat-select [(value)]="unit.block_no">
+        <mat-select [(value)]="selectedunit.block_no">
             @for (block of blocks; track block) {
               <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
             }

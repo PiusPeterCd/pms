@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-view',
@@ -16,8 +17,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 
 
 export class ViewComponent {
-  //private parishUrl="/assets/data/parish.json";
-  private parishUrl="http://localhost:3000/api/getparish";
+  private parishUrl="/assets/data/parish.json";
+  //private parishUrl="http://localhost:3000/api/getparish";
   private blockUrl="/assets/data/blocks.json";
   private http=inject(HttpClient)
   parish:any;
@@ -30,7 +31,7 @@ export class ViewComponent {
   //   'id':2,
   //   'name':'St francis xavier'
   // }]
-constructor(){
+constructor(public apiService:ApiService){
   this.fetchBlock();
   this.fetchParish();
 }
@@ -41,7 +42,14 @@ constructor(){
   }
   fetchBlock(){
     this.http.get(this.blockUrl).subscribe((res:any)=>{
-      this.blocks=res as any;
+      this.blocks=res;
+      this.blocks.forEach((block: any) => {
+        block.units=[]
+        this.apiService.getUnitbyBlock(block.block_id).subscribe((response: any) => {
+          block.units=response;
+        });
+        
+      });
     })
   }
   expandedIndex = 0;

@@ -29,11 +29,11 @@
           [style.display]="accordionItem.expanded ? '' : 'none'"
           [attr.id]="'accordion-body-' + index"
           [attr.aria-labelledby]="'accordion-header-' + index">
-          <p> {{item.block_name}} block consist of <b>{{item.no_of_family}}</b> families with total <b>{{item.no_of_members}}</b> members. 
+          <!-- <p> {{item.block_name}} block consist of <b>{{item.no_of_family}}</b> families with total <b>{{item.no_of_members}}</b> members. 
             There are <b>{{item.no_of_male}} Men</b> and <b>{{item.no_of_female}} Women</b> members. <b>{{item.no_of_youth}}</b> members belongs to Youth group
              and sufficient with <b>{{item.no_of_children}}</b> children.
-          </p>
-          <p style="font-size: 16px;color: brown;
+          </p> -->
+          <!-- <p style="font-size: 16px;color: brown;
           font-weight: 500;
       ">
       Block Leadership:</p>
@@ -49,8 +49,8 @@
             @for(coordinator of item.coordinators; track coordinator; let index = $index){
               <li><span style="font-weight: 500;">{{coordinator.position}}</span> : {{coordinator.name}}, {{coordinator.family}}</li>
             }
-          </ul>
-          <p style="font-size: 16px;color: brown;
+          </ul>-->
+          <p style="font-size: 16px;color: brown; 
           font-weight: 500;
       ">Family units (BCC):</p>
           <ol style="margin:0;" >

@@ -8,6 +8,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatRadioModule} from '@angular/material/radio';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatChipsModule} from '@angular/material/chips';
+import { Member } from "../member";
 import { unit } from '../unit';
 
 export interface DialogData {
@@ -21,12 +25,15 @@ export interface DialogData {
     selector: 'add-member-dialog',
     templateUrl: 'add.member.component.html',
     standalone: true,
-    
+    styleUrl: './addunit.component.css',
+    providers: [provideNativeDateAdapter()],
     imports: [
       MatFormFieldModule,
+      MatSlideToggleModule,
       MatInputModule,
       MatSelectModule,
       MatStepperModule,
+      MatChipsModule,
       FormsModule,
       MatButtonModule,
       MatDatepickerModule,
@@ -39,14 +46,7 @@ export interface DialogData {
     ],
   })
   export class AddMemberDialog {
-     blocks: Block[] = [
-        {value: '1', viewValue: 'Block 1'},
-        {value: '2', viewValue: 'Block 2'},
-        {value: '3', viewValue: 'Block 3'},
-        {value: '4', viewValue: 'Block 4'},
-        {value: '5', viewValue: 'Block 5'},
-      ];
-  
+     member:any=new Member('','','','','','','','','','','','','','',false,'','','','','','','',[],'');
     constructor(
         private _formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<AddMemberDialog>,
@@ -54,15 +54,39 @@ export interface DialogData {
     ) {}
   
     firstFormGroup = this._formBuilder.group({
-        firstCtrl: ['', Validators.required],
+      name: ['', Validators.required],
+      dob: ['', Validators.required],
+      gender: ['', Validators.required],
+      fname: ['', Validators.required],
+      mname: ['', Validators.required],
       });
       secondFormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required],
+        baptizedd: [''],
+        baptizedp: [''],
+        confirmd: [''],
+        confirmp: [''],
+        mstatus: [''],
+        mdate: [''],
+        mparish: [''],
+        sname: ['']
+      });
+      eduFormGroup = this._formBuilder.group({
+        estatus: [''],
+        job: [''],
+        quali: [''],
+        workplace: ['']
+      });
+      assFormGroup = this._formBuilder.group({
+        association: [[]],
+      });
+      contactFormGroup = this._formBuilder.group({
+        phone: [''],
+        mail: ['']
       });
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close(this.member);
         }
     
   }
   
-  
+   

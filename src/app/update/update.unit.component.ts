@@ -6,6 +6,9 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import {MatSelectModule} from '@angular/material/select';
 import { unit } from '../unit';
+import { ApiService } from "../api.service";
+import { HttpClientModule } from "@angular/common/http";
+import { CommonService } from "../common.service";
 export interface DialogData {
     unitdetails: any;
   }
@@ -17,6 +20,7 @@ export interface DialogData {
     selector: 'update-unit-dialog',
     templateUrl: 'update.unit.component.html',
     standalone: true,
+    providers:[CommonService,ApiService],
     imports: [
       MatFormFieldModule,
       MatInputModule,
@@ -27,6 +31,7 @@ export interface DialogData {
       MatDialogContent,
       MatDialogActions,
       MatDialogClose,
+      HttpClientModule
     ],
   })
   export class UpdateUnitDialog {
@@ -37,19 +42,32 @@ export interface DialogData {
         {value: '4', viewValue: 'Block 4'},
         {value: '5', viewValue: 'Block 5'},
       ];
-    unit=new unit('','','');
+      units:any=[]
+    selectedunit=new unit('','','',[]);
     constructor(
+      private apiservice:ApiService,
       public dialogRef: MatDialogRef<UpdateUnitDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    ) {}
-  
+      @Inject(MAT_DIALOG_DATA) public data: DialogData
+    ) {
+    }
+    ngOnInit(){
+      this.apiservice.getUnits().subscribe(response => {
+        this.units=response;
+      });
+    }
+    onSelectChange(event: any){
+      console.log(event);
+      this.units.forEach((unit: unit)=> {
+        if(unit.id==event.source.value){
+          this.selectedunit=unit;
+        }
+      });
+    }
     onNoClick(): void {
-        if(this.unit.name ==''||this.unit.block_no==''){
+        if(this.selectedunit.id ==''){
             
         }else{
-        var id="1"+this.unit.block_no
-        this.unit.id=id;
-        console.log("add unit json",this.unit)
+        console.log("update unit json",this.selectedunit)
       this.dialogRef.close();
         }
     }

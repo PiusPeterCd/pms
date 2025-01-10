@@ -27,7 +27,11 @@ const routeConfig: Routes = [
     },{
       path: 'addunit',
       component: AddunitComponent,
-      title: 'Add Unit details'
+      title: 'Add Family details'
+    },{
+      path: 'updateunit/:id',
+      component: AddunitComponent,
+      title: 'Update Family details'
     }
   ];
   

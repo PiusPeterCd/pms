@@ -1,17 +1,13 @@
-<div style="margin-left: 10%;">
+<div class="" style="margin-left: 10%;position: relative;">
     <h1>Add New Family</h1>
-    <div>
-        <mat-form-field>
-            <mat-label>Select Block</mat-label>
-            <mat-select>
-              <mat-option value="option">Option</mat-option>
-            </mat-select>
-            <mat-hint align="end">Block in which family should belong</mat-hint>
-          </mat-form-field>
+    <p style="color: green;">{{successMessage}}</p>
+    <div class="" >
           <mat-form-field>
             <mat-label>Select Unit</mat-label>
-            <mat-select>
-              <mat-option value="option">Option</mat-option>
+            <mat-select [(ngModel)]="family.unitid">
+              @for (unit of units; track unit) {
+              <mat-option value="{{unit.id}}">{{unit.name}}</mat-option>
+              }
             </mat-select>
             <mat-hint align="end">Family unit (BCC) in which family should belong</mat-hint>
           </mat-form-field>
@@ -19,26 +15,56 @@
     
           <mat-form-field>
             <mat-label> What is the family name?</mat-label>
-            <input matInput #input placeholder="Family name">
-            <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+            <input [(ngModel)]="family.name" required matInput #input placeholder="Family name">
           </mat-form-field>
           <mat-form-field>
             <mat-label>Address</mat-label>
-            <textarea matInput></textarea>
+            <textarea required [(ngModel)]="family.address" matInput></textarea>
           </mat-form-field>
           <mat-form-field>
             <mat-label>When did family Joined parish?</mat-label>
-            <input matInput [matDatepicker]="picker">
+            <input [(ngModel)]="family.joined_on" matInput [matDatepicker]="picker">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+
+        <p style="color:red">{{errormessage}}</p>
+    <div class="button-container">
+<!-- Add this to your HTML file -->
+<button  mat-raised-button (click)="addFamily()" color="primary">Save</button>
+<button mat-raised-button style="margin-left: 20px;" color="secondary" href="/">Cancel</button>
+
     </div>
-    <p>ADD MEMBERS  <button (click)="onAdd()" style="margin-left:60px;" mat-fab color="primary">
-        <mat-icon>person_add</mat-icon>
+    </div>
+<div style="width: 400px;
+position: absolute;
+top: 20px;
+right: 100px;
+padding: 10px 20px;
+background-color: #f0f0f0; ">
+    <p style="font-size: 20px;text-align: center;">Add Members 
+      <button (click)="onAdd()" style="margin-left: 20px;
+      width: 40px;
+      height: 40px;" mat-fab color="primary">
+        <mat-icon width="20px">person_add</mat-icon>
       </button></p>
     <mat-list role="list">
-        <mat-list-item role="listitem">Item 1</mat-list-item>
-    </mat-list>
-   
-      
+      @for (member of members; track member.id) {
+        <mat-list-item role="listitem">
+          <span>{{member.name}}</span>
+          <button (click)="deleteMember($index)" class="small-button"  mat-fab color="warn">
+            <mat-icon class="small-icon">delete_outline</mat-icon></button>
+        </mat-list-item>
+      }
+      </mat-list>
+      <mat-form-field>
+    <mat-label>Choose the family head</mat-label>
+    <mat-select [(ngModel)]="family.family_head">
+      @for (member of members; track member) {
+      <mat-option value="{{member.id}}">{{member.name}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+    </div>
+  
 </div>

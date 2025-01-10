@@ -7,6 +7,9 @@ import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
+import { ApiService } from '../api.service';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-family',
   standalone: true,
@@ -16,14 +19,25 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class FamilyComponent {
   family:any={};
-  private familyUrl="/assets/data/family.json";
-  private http=inject(HttpClient)
-  constructor(){
-    this.fetchfamily();
+ id:string='';
+  constructor(private apiservice:ApiService,private route: ActivatedRoute){
+    
+    
+  }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      var id = params.get('id'); // Replace 'id' with your parameter name
+      this.id=id?id:'';
+      this.fetchfamily();
+      console.log(id);
+    });
   }
   fetchfamily(){
-    this.http.get(this.familyUrl).subscribe((res:any)=>{
-      this.family=res as any;
-    })
+    this.apiservice.getFamilyDetails(this.id).subscribe(response => {
+      this.family=response;
+      this.apiservice.getFamilyMembers(this.id).subscribe(response => {
+        this.family.members=response;
+      });
+    });
   }
 }
