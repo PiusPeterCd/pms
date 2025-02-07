@@ -23,6 +23,9 @@ export class ApiService {
   getFamily(id:string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/familys/${id}`);
   }
+  getallFamily(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/allfamilys/`);
+  }
   getFamilyDetails(id:string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/familydetails/${id}`);
   }
@@ -96,13 +99,13 @@ export class ApiService {
   }
 
   // DELETE: Delete an item
-  deletemember(id: number): Observable<any> {
+  deletemember(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deletemember/${id}`);
   }
-  deletefamily(id: number): Observable<any> {
+  deletefamily(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deletefamily/${id}`);
   }
-  deleteunit(id: number): Observable<any> {
+  deleteunit(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deleteunit/${id}`);
   }
 }

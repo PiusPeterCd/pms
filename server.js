@@ -127,6 +127,24 @@ app.get('/familys/:id', (req, res) => {
     }
   });
 });
+app.get('/allfamilys', (req, res) => {
+  const id = req.params.id;
+
+  fs.readFile('family.json', 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read data' });
+    }
+
+    // Parse the JSON data
+    const jsonData = JSON.parse(data);
+
+    if (jsonData) {
+      res.status(200).json(jsonData);
+    } else {
+      res.status(404).json({ error: 'Data not found' });
+    }
+  });
+});
 
 app.get('/familymembers/:id', (req, res) => {
   const id = req.params.id;
@@ -189,7 +207,7 @@ app.get('/familydetails/:id', (req, res) => {
 
     // Find the data by ID
     const result = jsonData.find(item => item.id === id);
-
+f
     if (result) {
       res.status(200).json(result);
     } else {
@@ -305,6 +323,67 @@ app.post('/addmember', (req, res) => {
     res.send({sucess:'ok'});
   });
 });
+
+});
+
+app.delete('/deleteunit/:id', (req, res) => {
+  const id = req.params.id;
+
+  fs.readFile('units.json', 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read data' });
+    }
+
+    // Parse the JSON data
+    let records = JSON.parse(data); 
+    records = records.filter(record => record.id !== id);
+    fs.writeFile('units.json', JSON.stringify(records, null, 2), 'utf8', (err) => { 
+      if (err) { 
+        return res.status(500).send({ message: 'Error writing file', err }); 
+      }
+      res.status(200).send({ message: 'Record deleted successfully' }); 
+    }); 
+  });
+});
+
+app.delete('/deletefamily/:id', (req, res) => {
+  const id = req.params.id;
+
+  fs.readFile('family.json', 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read data' });
+    }
+
+    // Parse the JSON data
+    let records = JSON.parse(data); 
+    records = records.filter(record => record.id !== id);
+    fs.writeFile('family.json', JSON.stringify(records, null, 2), 'utf8', (err) => { 
+      if (err) { 
+        return res.status(500).send({ message: 'Error writing file', err }); 
+      }
+      res.status(200).send({ message: 'Record deleted successfully' }); 
+    }); 
+  });
+});
+
+app.delete('/deletemember/:id', (req, res) => {
+  const id = req.params.id;
+
+  fs.readFile('members.json', 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read data' });
+    }
+
+    // Parse the JSON data
+    let records = JSON.parse(data); 
+    records = records.filter(record => record.id !== id);
+    fs.writeFile('members.json', JSON.stringify(records, null, 2), 'utf8', (err) => { 
+      if (err) { 
+        return res.status(500).send({ message: 'Error writing file', err }); 
+      }
+      res.status(200).send({ message: 'Record deleted successfully' }); 
+    }); 
+  });
 });
 
 app.listen(port, () => {

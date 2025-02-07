@@ -1,0 +1,33 @@
+<div style="min-width: 400px;">
+    <h2 style="text-align: center;
+    font-size: 23px;
+    color: purple;" mat-dialog-title>DELETE FAMILY</h2>
+    <mat-dialog-content style="width: 100%;">
+      <p stle="font-size: 14px;">Select the unit of the family which need to be deleted</p>
+     
+        <div class="form-group">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Unit Name </mat-label>
+            <mat-select  >
+                @for (unit of units; track unit) {
+                  <mat-option  (onSelectionChange)="onSelectChange($event)" [value]="unit.id">{{unit.name}}</mat-option>
+                }
+              </mat-select>
+              </mat-form-field> 
+              <mat-form-field style="width: 100%;">
+                <mat-label>Family </mat-label>
+            <mat-select  >
+                @for (family of familys; track family) {
+                  <mat-option  (onSelectionChange)="onSelectChangeFamily($event)" [value]="family.id">{{family.id}} - {{family.name}}</mat-option>
+                }
+              </mat-select>
+              </mat-form-field>
+
+        </div>
+      <p style="color: red;">{{errorMessage}}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button style="margin-left:20px" mat-button cdkFocusInitial (click)="onNoClick()">Delete</button>
+      <button mat-button [mat-dialog-close] >cancel</button>
+    </mat-dialog-actions>
+    </div>

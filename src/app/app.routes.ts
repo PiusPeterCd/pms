@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { DetailsComponent } from './details/details.component';
 import { FamilyComponent } from './family/family.component';
 import { AddunitComponent } from './addunit/addunit.component';
+import { UpdateunitComponent } from './updateunit/updateunit.component';
 
 const routeConfig: Routes = [
     {
@@ -29,8 +30,8 @@ const routeConfig: Routes = [
       component: AddunitComponent,
       title: 'Add Family details'
     },{
-      path: 'updateunit/:id',
-      component: AddunitComponent,
+      path: 'updateunit',
+      component: UpdateunitComponent,
       title: 'Update Family details'
     }
   ];

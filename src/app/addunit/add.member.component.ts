@@ -46,7 +46,7 @@ export interface DialogData {
     ],
   })
   export class AddMemberDialog {
-     member:any=new Member('','','','','','','','','','','','','','',false,'','','','','','','',[],'');
+     member:any=new Member('','','','','','','','','','','','','','',false,'','','','','','','','','');
     constructor(
         private _formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<AddMemberDialog>,
@@ -84,6 +84,7 @@ export interface DialogData {
         mail: ['']
       });
     onNoClick(): void {
+      if(this.member.name!==undefined && this.member.name!=='')
       this.dialogRef.close(this.member);
         }
     

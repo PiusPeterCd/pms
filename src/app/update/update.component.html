@@ -6,7 +6,8 @@
           </mat-card-header>
           <mat-card-actions>
             <button style="margin-right:10px;" mat-raised-button color="primary" (click)="onAdd()">ADD NEW</button>
-            <button  mat-raised-button color="primary"  (click)="onUpdate()">UPDATE</button>
+            <button   style="margin-right:10px;"  mat-raised-button color="primary"  (click)="onUpdate()">UPDATE</button>
+            <a  mat-raised-button color="primary" (click)="ondeleteunit()">DELETE</a>
           </mat-card-actions>
     </mat-card>
     <mat-card style="background-color: rgb(228, 222, 250); margin-top: 20px ; padding: 10px;">
@@ -17,7 +18,7 @@
           <mat-card-actions>
             <a style="margin-right:10px;" mat-raised-button href="/addunit" color="primary">ADD NEW</a>
             <a style="margin-right:10px;" mat-raised-button href="/updateunit" color="primary">UPDATE</a>
-            <a  mat-raised-button color="primary">DELETE</a>
+            <a  mat-raised-button color="primary" (click)="onDeleteFamily()">DELETE</a>
           </mat-card-actions>
     </mat-card>
 </div>

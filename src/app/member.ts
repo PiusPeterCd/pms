@@ -24,7 +24,7 @@ export class Member {
            public  qualification:string,
            public workplace:string,
            public  job:string,
-           public  parish_association:[],
+           public  parish_association:string,
            public photo_url:string,
     ) {  }
   

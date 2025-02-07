@@ -51,6 +51,27 @@ export class AddunitComponent {
        this.isEditMode = !!this.editflag; 
       });
   }
+  // onDateChange(event:any, obj:any){
+  //   var date=event.target.value
+  //   const day = date.getDate().toString().padStart(2, '0'); 
+  //   const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+  //   const year = date.getFullYear(); 
+  //   const formattedDate = `${day}/${month}/${year}`; 
+  //   console.log(formattedDate); // Output: 22/01/2025 // If you only want to get the date string: return formattedDate;
+  //   obj.joined_on=formattedDate ;
+  // }
+  formatDate(obj:any){
+    if(obj && obj!=''){
+      var date=obj
+      const day = date.getDate().toString().padStart(2, '0'); 
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+      const year = date.getFullYear(); 
+      const formattedDate = `${day}/${month}/${year}`; 
+      console.log(formattedDate); // Output: 22/01/2025 // If you only want to get the date string: return formattedDate;
+      return formattedDate ;
+    }
+   return ''
+  }
   onAdd(): void {
     const dialogRef = this.dialog.open(AddMemberDialog, {
      
@@ -83,6 +104,7 @@ export class AddunitComponent {
           let familycount=response.length+1
           var id=this.family.unitid+""+familycount;
           this.family.id=id;
+          this.family.joined_on=this.formatDate(this.family.joined_on);
           var count=1;
         this.errormessage='';
         this.apiservice.addfamily(this.family).subscribe(item => {
@@ -91,10 +113,15 @@ export class AddunitComponent {
             element.id=this.family.id+""+count;
             element.familyid=this.family.id;
             element.unitid=this.family.unitid;
+            element.dob=this.formatDate(element.dob)
+            element.baptized_date=this.formatDate(element.baptized_date)
+            element.confirmation_date=this.formatDate(element.confirmation_date)
+            element.marriage_date=this.formatDate(element.marriage_date)
+            element.parish_association=JSON.stringify(element.parish_association)
             count++;
             console.log(element)
-            this.apiservice.addmember(element).subscribe(item => {
-              
+            this.apiservice.addmember(element).subscribe(response => {
+              this.successMessage="Member "+element.name+" added successfully"
             });
           });
           
@@ -104,7 +131,7 @@ export class AddunitComponent {
               this.successMessage="Family added successfully"
               setTimeout(()=>{
                 this.successMessage=''
-              },5000)
+              },2000)
               },5000);
           
         });

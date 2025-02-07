@@ -23,7 +23,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>When did family Joined parish?</mat-label>
-            <input [(ngModel)]="family.joined_on" matInput [matDatepicker]="picker">
+            <input [(ngModel)]="family.joined_on" matInput readonly [matDatepicker]="picker">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -61,7 +61,7 @@ background-color: #f0f0f0; ">
     <mat-label>Choose the family head</mat-label>
     <mat-select [(ngModel)]="family.family_head">
       @for (member of members; track member) {
-      <mat-option value="{{member.id}}">{{member.name}}</mat-option>
+      <mat-option value="{{member.name}}">{{member.name}}</mat-option>
       }
     </mat-select>
   </mat-form-field>

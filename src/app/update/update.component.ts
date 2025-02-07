@@ -15,7 +15,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddUnitDialog } from './add.unit.component';
 import { UpdateUnitDialog } from './update.unit.component';
-
+import { DeleteUnitDialog } from './delete.unit.component';
+import { DeleteFamilyDialog } from './delete.family.component';
 
 @Component({
   selector: 'app-update',
@@ -36,6 +37,16 @@ export class UpdateComponent {
   }
   onUpdate(){
     const dialogRef = this.dialog.open(UpdateUnitDialog, {
+     
+    });
+  }
+  ondeleteunit(){
+    const dialogRef = this.dialog.open(DeleteUnitDialog, {
+     
+    });
+  }
+  onDeleteFamily(){
+    const dialogRef = this.dialog.open(DeleteFamilyDialog, {
      
     });
   }

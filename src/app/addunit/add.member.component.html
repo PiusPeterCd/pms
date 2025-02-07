@@ -21,7 +21,7 @@
                      
                 <mat-form-field>
                         <mat-label>Date of birth</mat-label>
-                        <input formControlName="dob" [(ngModel)]="member.dob" matInput [matDatepicker]="picker">
+                        <input formControlName="dob" readonly [(ngModel)]="member.dob" matInput [matDatepicker]="picker">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                  </mat-form-field>   
@@ -46,7 +46,7 @@
                 <ng-template matStepLabel>Parish Records</ng-template>
                    <mat-form-field style="display: inline-flex;">
                     <mat-label>Baptized Date</mat-label>
-                    <input formControlName="baptizedd" [(ngModel)]="member.baptized_date" matInput [matDatepicker]="picker2">
+                    <input formControlName="baptizedd" readonly [(ngModel)]="member.baptized_date" matInput [matDatepicker]="picker2">
                     <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>   
@@ -60,7 +60,7 @@
                <mat-form-field style="display: inline-flex;">
                 
                     <mat-label>Confirmation Date</mat-label>
-                    <input formControlName="confirmd" [(ngModel)]="member.confirmation_date" matInput [matDatepicker]="picker3">
+                    <input formControlName="confirmd" readonly [(ngModel)]="member.confirmation_date" matInput [matDatepicker]="picker3">
                     <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3></mat-datepicker>
                 
@@ -86,7 +86,7 @@
                  
                <mat-form-field style="display: inline-flex;">
                     <mat-label>Marraige Date</mat-label>
-                    <input formControlName="mdate"  [(ngModel)]="member.marriage_date" matInput [matDatepicker]="picker4">
+                    <input formControlName="mdate" readonly  [(ngModel)]="member.marriage_date" matInput [matDatepicker]="picker4">
                     <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
                     <mat-datepicker #picker4></mat-datepicker>
                 
