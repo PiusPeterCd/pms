@@ -1,0 +1,40 @@
+<div style="padding: 20px;">
+    <h2 style="text-align: center;
+    font-size: 23px;
+    color: purple;" mat-dialog-title>UPDATE FAMILY UNIT</h2>
+
+<mat-dialog-content style="width: 100%;">
+    <div class="form-group">
+        <form (ngSubmit)="onNoClick()" #unitForm="ngForm">
+<mat-form-field>
+    <mat-label> Family name</mat-label>
+    <input [(ngModel)]="family.name"  name='name' required matInput #input placeholder="Family name">
+  </mat-form-field>
+<br>
+  <mat-form-field>
+    <mat-label>Address</mat-label>
+    <textarea required [(ngModel)]="family.address"  name='address' matInput></textarea>
+  </mat-form-field>
+<br>
+  <mat-form-field>
+    <mat-label>When did family Joined parish?</mat-label>
+    <input [(ngModel)]="family.joined_on"  name='date' required matInput #input placeholder="joining date">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    
+
+  <mat-label>Who is family head?</mat-label>
+    <input [(ngModel)]="family.family_head_name" name="family_head_name" matInput #input placeholder="Family head">
+  </mat-form-field>
+
+<div class="button-container">
+<!-- Add this to your HTML file -->
+<button  mat-raised-button  color="primary" (click)="updateFamily()">Save</button>
+<button mat-raised-button style="margin-left: 20px;" color="secondary" href="/">Cancel</button>
+
+</div>
+</form>
+</div>
+</mat-dialog-content>
+</div>

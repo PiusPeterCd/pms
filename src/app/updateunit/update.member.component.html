@@ -1,0 +1,42 @@
+<div style="padding: 20px;">
+    <h2 style="text-align: center;
+    font-size: 23px;
+    color: purple;" mat-dialog-title>UPDATE MEMBERS</h2>
+
+<a mat-raised-button color="primary" (click)="onAdd()">Add New </a>
+<mat-dialog-content style="width: 100%;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="dob">
+          <th mat-header-cell *matHeaderCellDef>DOB </th>
+          <td mat-cell *matCellDef="let element"> {{element.dob}} </td>
+        </ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef> Update</th>
+          <td mat-cell *matCellDef="let element"> <a mat-raised-button color="primary" (click)="onUpdate(element)">Update </a></td>
+        </ng-container>
+        <ng-container matColumnDef="delete"> 
+          <th mat-header-cell *matHeaderCellDef> Delete</th>
+          <td mat-cell *matCellDef="let element"> <a mat-raised-button color="warning" (click)="onDelete(element)"> X </a></td>
+        </ng-container>
+          
+        <!-- Symbol Column -->
+        
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+      </table>
+</mat-dialog-content>
+</div>

@@ -207,7 +207,6 @@ app.get('/familydetails/:id', (req, res) => {
 
     // Find the data by ID
     const result = jsonData.find(item => item.id === id);
-f
     if (result) {
       res.status(200).json(result);
     } else {
@@ -381,10 +380,97 @@ app.delete('/deletemember/:id', (req, res) => {
       if (err) { 
         return res.status(500).send({ message: 'Error writing file', err }); 
       }
-      res.status(200).send({ message: 'Record deleted successfully' }); 
+      res.status(200).json(records); 
     }); 
   });
 });
+
+app.put('/unit/:id', (req, res) => {
+  const id = req.params.id;
+  const newData = req.body;
+
+  // Read the existing JSON file
+  fs.readFile('unit.json', 'utf8', (err, data) => {
+      if (err) {
+          console.error('Error reading the file:', err);
+          return res.status(500).send('Error reading the file');
+      }
+      let jsonArray = JSON.parse(data);
+      const objIndex = jsonArray.findIndex(obj => obj.id == id);
+      if (objIndex !== -1) {
+          jsonArray[objIndex] = { ...jsonArray[objIndex], ...newData };
+      } else {
+          return res.status(404).send('Object not found');
+      }
+
+      // Write the updated JSON array back to the file
+      fs.writeFile('unit.json', JSON.stringify(jsonArray, null, 2), (err) => {
+          if (err) {
+              console.error('Error writing to the file:', err);
+              return res.status(500).send('Error writing to the file');
+          }
+          res.send('JSON file has been updated');
+      });
+    });
+  });
+
+  app.put('/members/:id', (req, res) => {
+    const id = req.params.id;
+    const newData = req.body;
+  
+    // Read the existing JSON file
+    fs.readFile('members.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading the file:', err);
+            return res.status(500).send('Error reading the file');
+        }
+        let jsonArray = JSON.parse(data);
+        const objIndex = jsonArray.findIndex(obj => obj.id == id);
+        if (objIndex !== -1) {
+            jsonArray[objIndex] = { ...jsonArray[objIndex], ...newData };
+        } else {
+            return res.status(404).send('Object not found');
+        }
+  
+        // Write the updated JSON array back to the file
+        fs.writeFile('members.json', JSON.stringify(jsonArray, null, 2), (err) => {
+            if (err) {
+                console.error('Error writing to the file:', err);
+                return res.status(500).send('Error writing to the file');
+            }
+            res.send('JSON file has been updated');
+        });
+      });
+    });
+
+    app.put('/family/:id', (req, res) => {
+      const id = req.params.id;
+      const newData = req.body;
+    
+      // Read the existing JSON file
+      fs.readFile('family.json', 'utf8', (err, data) => {
+          if (err) {
+              console.error('Error reading the file:', err);
+              return res.status(500).send('Error reading the file');
+          }
+          let jsonArray = JSON.parse(data);
+          const objIndex = jsonArray.findIndex(obj => obj.id == id);
+          if (objIndex !== -1) {
+              jsonArray[objIndex] = { ...jsonArray[objIndex], ...newData };
+          } else {
+              return res.status(404).send('Object not found');
+          }
+    
+          // Write the updated JSON array back to the file
+          fs.writeFile('family.json', JSON.stringify(jsonArray, null, 2), (err) => {
+              if (err) {
+                  console.error('Error writing to the file:', err);
+                  return res.status(500).send('Error writing to the file');
+              }
+              res.send('JSON file has been updated');
+          });
+        });
+      });
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

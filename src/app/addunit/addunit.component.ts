@@ -117,7 +117,7 @@ export class AddunitComponent {
             element.baptized_date=this.formatDate(element.baptized_date)
             element.confirmation_date=this.formatDate(element.confirmation_date)
             element.marriage_date=this.formatDate(element.marriage_date)
-            element.parish_association=JSON.stringify(element.parish_association)
+            element.parish_association=element.parish_association.toLocaleString()
             count++;
             console.log(element)
             this.apiservice.addmember(element).subscribe(response => {

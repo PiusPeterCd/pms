@@ -6,6 +6,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { unit } from '../unit';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import { UpdateFamilyDialog} from './update.family.component';
+import {UpdateMemberDialog} from './update.member.component';
 export interface Family{
    id: string,
    unitid: string,
@@ -36,6 +47,7 @@ export class UpdateunitComponent {
   family:any=[];
    constructor(
         private apiservice:ApiService,
+        public dialog: MatDialog
       ) {
       }
   ngOnInit(){
@@ -53,12 +65,26 @@ export class UpdateunitComponent {
     
   }
   findunitname(id:string){
+    var name = ''
     this.units.forEach((unit: any)=> {
       if(id==unit.id)
-        return unit.name;
+        name= unit.name;
     });
-    return ''
+    return name;
   }
+
+  openupdateoverlay(element: any){
+      const dialogRef = this.dialog.open(UpdateFamilyDialog, {
+       data: element
+      });
+    }
+    openupdatememberoverlay(element: any){
+      this.apiservice.getFamilyMembers(element.id).subscribe(response => {
+      const dialogRef = this.dialog.open(UpdateMemberDialog, {
+       data: response
+      });
+    });
+    }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

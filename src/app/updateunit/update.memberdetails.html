@@ -1,0 +1,200 @@
+<div style="min-width: 400px;">
+    <h2 style="text-align: center;
+    font-size: 23px;
+    color: purple;" mat-dialog-title>{{heading}}</h2>
+    <mat-dialog-content style="width: 100%;">
+        <mat-stepper [linear]="false" #stepper>
+            <mat-step [stepControl]="firstFormGroup" [editable]="true">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Basic Info</ng-template>
+                    <mat-form-field>
+                        <mat-label> Name</mat-label>
+                        <input matInput formControlName="name" [(ngModel)]="member.name"  placeholder=" name">
+                    </mat-form-field>
+                     
+                <div>
+                        <mat-radio-group  aria-label="Gender" formControlName="gender" [(ngModel)]="member.gender">
+                            <mat-radio-button value="M">Male</mat-radio-button>
+                            <mat-radio-button value="F">Female</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                     
+                <mat-form-field>
+                        <mat-label>Date of birth</mat-label>
+                        <input matInput formControlName="dob" [(ngModel)]="member.dob"  placeholder=" name">
+                 </mat-form-field>   
+                  
+                <mat-form-field>
+                    
+                        <mat-label> Fathers Name</mat-label>
+                        <input matInput   placeholder="Enter fathers name" formControlName="fname" [(ngModel)]="member.father">
+                    </mat-form-field>  
+                     
+                    <mat-form-field>   
+                    
+                        <mat-label> Mothers Name</mat-label>
+                        <input matInput formControlName="mname" [(ngModel)]="member.mother"  placeholder="enter mothers name">
+                    </mat-form-field>   
+                    
+        </form>
+        </mat-step>
+       
+        <mat-step [stepControl]="secondFormGroup" [editable]="true">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Parish Records</ng-template>
+                   <mat-form-field style="display: inline-flex;">
+                    <mat-label>Baptized Date</mat-label>
+                    <input matInput formControlName="baptizedd" [(ngModel)]="member.baptized_date"  placeholder=" name">
+                </mat-form-field>   
+                
+               <mat-form-field style="display: inline-flex;margin-left:20px">
+                
+                    <mat-label> Baptized Parish</mat-label>
+                    <input matInput formControlName="baptizedp" [(ngModel)]="member.baptized_parish" placeholder=" name">
+                </mat-form-field>   
+                 <br/>
+               <mat-form-field style="display: inline-flex;">
+                
+                    <mat-label>Confirmation Date</mat-label>
+                    <input matInput formControlName="confirmd" [(ngModel)]="member.confirmation_date"  placeholder=" name">
+                
+                </mat-form-field>   
+                
+               <mat-form-field style="display: inline-flex;margin-left:20px">
+                    <mat-label> Confirmation Parish</mat-label>
+                    <input matInput formControlName="confirmp"  [(ngModel)]="member.confirmation_parish" placeholder=" name">
+                </mat-form-field> 
+                <p> <mat-slide-toggle
+                    class="example-margin"
+                    [checked]="member.marital_status" (click)="member.marital_status=!member.marital_status"
+                    >
+                  Married {{member.marital_status}}
+                </mat-slide-toggle></p>
+                @if (member.marital_status) { 
+               <mat-form-field>
+                
+                    <mat-label> Spouse Name</mat-label>
+                    <input matInput formControlName="sname" [(ngModel)]="member.spouse_name" placeholder=" name">
+                
+                </mat-form-field>   
+                 
+               <mat-form-field style="display: inline-flex;">
+                    <mat-label>Marraige Date</mat-label>
+                    <input matInput formControlName="mdate" [(ngModel)]="member.marriage_date"  placeholder=" name">
+                </mat-form-field>   
+                
+               <mat-form-field style="display: inline-flex;margin-left:20px">
+                    <mat-label> Marraige Parish</mat-label>
+                    <input matInput formControlName="mparish"  [(ngModel)]="member.marriage_parish" placeholder=" parish name">
+                </mat-form-field>   
+            }
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="assFormGroup" [editable]="true">
+            <form [formGroup]="assFormGroup">
+                <ng-template matStepLabel>Parish Association</ng-template>
+                 
+           <mat-form-field>
+            <mat-label> Choose the associations member involved</mat-label>
+            <mat-select formControlName="association" [(ngModel)]="member.parish_association" multiple>
+                <mat-option value="Catecism">Catecism</mat-option>
+                <mat-option value="Parish Council">Parish Council</mat-option>
+                <mat-option value="BCC Leadership">BCC Leadership</mat-option>
+                <mat-option value="MCYM">MCYM</mat-option>
+                <mat-option value="Vincent De paul">Vincent De paul</mat-option>
+                <mat-option value="Legion of Mary">Legion of Mary</mat-option>
+              </mat-select>
+              </mat-form-field>
+              <mat-chip-set aria-label="Fish selection">
+                @for (association of member.parish_association; track association) {
+                <mat-chip>{{association}}</mat-chip>
+                }
+              </mat-chip-set>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="contactFormGroup" [editable]="true">
+            <form [formGroup]="contactFormGroup">
+                <ng-template matStepLabel>Contact</ng-template>
+            
+           <mat-form-field>
+                    <mat-label> Phone</mat-label>
+                    <input  matInput  formControlName="phone" [(ngModel)]="member.phone" placeholder=" name">
+                </mat-form-field>   
+                 
+               <mat-form-field>    
+                
+                    <mat-label> Email</mat-label>
+                    <input matInput  formControlName="mail" [(ngModel)]="member.mail" placeholder=" name">
+                </mat-form-field>   
+                
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="eduFormGroup" [editable]="true">
+            <form [formGroup]="eduFormGroup">
+                <ng-template matStepLabel>Education & Occupation</ng-template>
+           
+           <mat-form-field>
+                    <mat-label> Education Status</mat-label>
+                    <mat-select formControlName="estatus" [(ngModel)]="member.education_status">
+                        <mat-option value="10th passed">10th passed</mat-option>
+                        <mat-option value="Graduate">Graduate</mat-option>
+                        <mat-option value="Post Graduate">Post Graduate</mat-option>
+                        <mat-option value="Below 10th">Below 10th</mat-option>
+                      </mat-select>
+                
+                    </mat-form-field>   
+                     
+                   <mat-form-field>     
+                    <mat-label> Qualification (Mention your degree/other equivalent)</mat-label>
+                    <input matInput formControlName="quali" [(ngModel)]="member.qualification" placeholder=" name">
+                
+                </mat-form-field>   
+                 
+               <mat-form-field>
+                    <mat-label> Job</mat-label>
+                    <input matInput formControlName="job" [(ngModel)]="member.job" placeholder=" name">
+                
+                </mat-form-field>   
+                 
+               <mat-form-field>
+                    <mat-label> Office/Workpace Name</mat-label>
+                    <input matInput formControlName="workplace" [(ngModel)]="member.workplace" placeholder=" name">
+                </mat-form-field>   
+                
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="delGroup" [editable]="true">
+            <form [formGroup]="delGroup">
+                <ng-template matStepLabel> Member Status</ng-template>
+           
+           <mat-form-field>
+                    <mat-label> Change Status</mat-label>
+                    <mat-select formControlName="dstatus" [(ngModel)]="member.status">
+                        <mat-option value="1">Activate</mat-option>
+                        <mat-option value="2">Inactivate : Death</mat-option>
+                        <mat-option value="3">Inactivate : Marraige</mat-option>
+                        <mat-option value="4">Inactivate : Transfer</mat-option>
+                      </mat-select>
+                    </mat-form-field>  
+                    @if (member.status == 2){
+                    <mat-form-field style="display: inline-flex;">
+                        <mat-label>Death Date</mat-label>
+                        <input matInput formControlName="ddate" [(ngModel)]="member.death_date"  placeholder=" name">
+                    </mat-form-field> 
+                    }
+                    @if (member.status == 4){
+                        <mat-form-field style="display: inline-flex;">
+                            <mat-label>Transfer Date</mat-label>
+                            <input matInput formControlName="tdate" [(ngModel)]="member.transfer_date"  placeholder=" name">
+                        </mat-form-field> 
+                    }
+                   
+            </form>
+        </mat-step>
+          </mat-stepper>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button style="margin-left:20px" mat-button cdkFocusInitial (click)="onNoClick()">Save</button>
+      <button mat-button [mat-dialog-close] >cancel</button>
+    </mat-dialog-actions>
+    </div>

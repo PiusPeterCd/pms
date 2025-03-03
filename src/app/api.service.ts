@@ -68,21 +68,21 @@ export class ApiService {
 
   // PUT: Update an existing item
   updateunit(id: number, item: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/updateunit/${id}`, item, {
+    return this.http.put<any>(`${this.apiUrl}/unit/${id}`, item, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     });
   }
   updatefamily(id: number, item: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/updatefamily/${id}`, item, {
+    return this.http.put<any>(`${this.apiUrl}/family/${id}`, item, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     });
   }
   updatemember(id: number, item: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/updatemember/${id}`, item, {
+    return this.http.put<any>(`${this.apiUrl}/members/${id}`, item, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
