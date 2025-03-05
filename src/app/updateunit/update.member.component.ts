@@ -76,6 +76,7 @@ export interface DialogData {
       var newmember:any={}
       var id:any=this.data;
         newmember.familyid=id;
+        newmember.unitid=id.slice(0, 3)
         newmember.id=id+''+(this.members.length+1)
         const dialogRef = this.dialog.open(UpdateDetailsDialog, {
          data:newmember
