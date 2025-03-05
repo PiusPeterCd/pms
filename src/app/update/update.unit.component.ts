@@ -42,8 +42,10 @@ export interface DialogData {
         {value: '4', viewValue: 'Block 4'},
         {value: '5', viewValue: 'Block 5'},
       ];
-      units:any=[]
-    selectedunit=new unit('','','',[]);
+      units:any=[];
+      members:any=[];
+      
+    selectedunit=new unit('','','','','','','','','','','','','','');
     constructor(
       private apiservice:ApiService,
       public dialogRef: MatDialogRef<UpdateUnitDialog>,
@@ -54,6 +56,7 @@ export interface DialogData {
       this.apiservice.getUnits().subscribe(response => {
         this.units=response;
       });
+      
     }
     onSelectChange(event: any){
       console.log(event);
@@ -62,6 +65,12 @@ export interface DialogData {
           this.selectedunit=unit;
         }
       });
+      this.apiservice.getUnitMembers(this.selectedunit.id).subscribe(response => {
+        this.members=response;
+      });
+    }
+    onSelectLeaderChange(fieldname:string,value:any){
+     // this.selectedunit[fieldname]=value
     }
     onNoClick(): void {
         if(this.selectedunit.id ==''){

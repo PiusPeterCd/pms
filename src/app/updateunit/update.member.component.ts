@@ -51,9 +51,13 @@ export interface DialogData {
     ) {
     }
     ngOnInit(){
+      var id:any=this.data;
+      this.apiservice.getFamilyMembers(id).subscribe(response => {
+        this.members=response;
+        this.dataSource = new MatTableDataSource(this.members);
+        });
         
-        this.members=this.data;
-       this.dataSource = new MatTableDataSource(this.members);
+      
     }
     onSelectChange(event: any){
       console.log(event);
@@ -70,14 +74,12 @@ export interface DialogData {
     }
     onAdd(): void {
       var newmember:any={}
-      if(this.members && this.members.length>0){
-        newmember.familyid=this.members[0].familyid;
-        newmember.id=this.members[0].familyid+''+(this.members.length+1)
+      var id:any=this.data;
+        newmember.familyid=id;
+        newmember.id=id+''+(this.members.length+1)
         const dialogRef = this.dialog.open(UpdateDetailsDialog, {
          data:newmember
         });
-      }
-      
   }
     onDelete(element: any): void {
      this.apiservice.deletemember(element.id).subscribe((response)=>{

@@ -79,11 +79,9 @@ export class UpdateunitComponent {
       });
     }
     openupdatememberoverlay(element: any){
-      this.apiservice.getFamilyMembers(element.id).subscribe(response => {
       const dialogRef = this.dialog.open(UpdateMemberDialog, {
-       data: response
+       data: element.id
       });
-    });
     }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -10,10 +10,9 @@
                text-transform: capitalize; text-align: center;
                font-size: 25px;"> {{unit.name}} BCC</h2>
                <div style="color: rgb(53, 52, 52);">
-                <p> <span> {{unit.name}} belongs to Block no {{unit.block}} . </span>
-              BCC consist of <b>{{unit.no_of_family}}</b> families with total <b>{{unit.no_of_members}}</b> members. 
-                  There are <b>{{unit.no_of_male}} Men</b> and <b>{{unit.no_of_female}} Women</b> members. <b>{{unit.no_of_youth}}</b> members belongs to Youth group
-                   and sufficient with <b>{{unit.no_of_children}}</b> children.
+                <p> <span> {{unit.name}} belongs to Block no {{unit.block_no}} . </span>
+              BCC consist of <b>{{family.length}}</b> families with total <b>{{members.length}}</b> members. 
+                
                 </p></div>
             </div>
         </mat-grid-tile>
@@ -26,7 +25,7 @@
             color: white;
             padding: 5px 10px;
             text-transform: uppercase;
-            font-weight: 500;">Leadership</div>
+            font-weight: 500;">Leadership & Animators</div>
             <div style="max-height: 300px;
             overflow-y: scroll;">
             @for (item of unit.leaders; track item; let index = $index) {
@@ -38,21 +37,7 @@
           }
             
         </div>
-            <div style="background-color: #4b834b;
-            color: white;
-            padding: 5px 10px;
-            text-transform: uppercase;
-            font-weight: 500;">Ministry Coordinators</div>
-            <div style="max-height: 160px;
-            overflow-y: scroll;">
-                 @for (item of unit.coordinators; track item; let index = $index) {
-                  <div class="cont" >
-                      <div class="heading">{{item.position}} </div>
-                      <div class="name">{{item.name}}, {{item.family}}</div>
-                      <div class="phone">{{item.phone}} <span> | </span> {{item.mail}}</div>
-                  </div>
-                }
-            </div>
+       
            
             </div>
         </mat-grid-tile>
@@ -62,6 +47,8 @@
             [colspan]="tiles[3].cols"
             [rowspan]="tiles[3].rows"
             [style.background]="tiles[3].color">
+            <mat-tab-group style="padding: 0px 40px;">
+              <mat-tab label="Families"> 
             <div>
                 <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="dataSource">
@@ -75,7 +62,7 @@
                       <!-- Name Column -->
                       <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef> Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.family_head}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.family_head_name}} </td>
                       </ng-container>
                   
                       <!-- Weight Column -->
@@ -102,6 +89,73 @@
                     </mat-paginator>
                   </div>
             </div>
+            </mat-tab>
+            <mat-tab label="Members"> 
+              <div>
+                  <div class="mat-elevation-z8">
+                      <table mat-table [dataSource]="dataSource2">
+                    
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="id">
+                          <th mat-header-cell *matHeaderCellDef> ID </th>
+                          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                        </ng-container>
+                    
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef> Name </th>
+                          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+                    
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="dob">
+                          <th mat-header-cell *matHeaderCellDef> DoB </th>
+                          <td mat-cell *matCellDef="let element"> {{element.dob}} </td>
+                        </ng-container>
+                    
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="gender">
+                          <th mat-header-cell *matHeaderCellDef> Gender</th>
+                          <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+                        </ng-container>
+  
+                          <!-- Name Column -->
+                          <ng-container matColumnDef="phone">
+                            <th mat-header-cell *matHeaderCellDef> Phone </th>
+                            <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                          </ng-container>
+                      
+                          <!-- Weight Column -->
+                          <ng-container matColumnDef="mail">
+                            <th mat-header-cell *matHeaderCellDef> Mail </th>
+                            <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
+                          </ng-container>
+                      
+                          <!-- Symbol Column -->
+                          <ng-container matColumnDef="marital_status">
+                            <th mat-header-cell *matHeaderCellDef> Married</th>
+                            <td mat-cell *matCellDef="let element"> {{element.marital_status}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="education_status">
+                            <th mat-header-cell *matHeaderCellDef> Education</th>
+                            <td mat-cell *matCellDef="let element"> {{element.education_status}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="job">
+                            <th mat-header-cell *matHeaderCellDef> Job</th>
+                            <td mat-cell *matCellDef="let element"> {{element.job}} </td>
+                          </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                      </table>
+                    
+                      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                                     showFirstLastButtons
+                                     aria-label="Select page of periodic elements">
+                      </mat-paginator>
+                    </div>
+              </div>
+              </mat-tab>
+            </mat-tab-group>
         </mat-grid-tile>
         
       </mat-grid-list>

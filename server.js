@@ -228,7 +228,13 @@ app.get('/unitmembers/:id', (req, res) => {
     const jsonData = JSON.parse(data);
 
     // Find the data by ID
-    const result = jsonData.find(item => item.unitid === id);
+    let result=[];
+    jsonData.forEach(item => {
+      if(item.unitid==id){
+        result.push(item);
+      }
+    });
+    
 
     if (result) {
       res.status(200).json(result);

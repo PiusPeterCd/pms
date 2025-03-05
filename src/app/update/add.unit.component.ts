@@ -44,7 +44,7 @@ export interface DialogData {
         {value: '5', viewValue: 'Block 5'},
       ];
     errorMessage:string=""
-    unit=new unit('','','',[]);
+    unit=new unit('','','','','','','','','','','','','','');;
     constructor(
       public dialogRef: MatDialogRef<AddUnitDialog>,
       @Inject(MAT_DIALOG_DATA) public data: DialogData,

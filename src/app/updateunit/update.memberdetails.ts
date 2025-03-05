@@ -120,7 +120,8 @@ export interface DialogData {
       // this.member.baptized_date=this.formatDate(this.member.baptized_date)
       // this.member.confirmation_date=this.formatDate(this.member.confirmation_date)
       // this.member.marriage_date=this.formatDate(this.member.marriage_date)
-      this.member.parish_association=this.member.parish_association.toLocaleString()
+      if(this.member.parish_association)
+       this.member.parish_association=this.member.parish_association.toLocaleString()
      if(this.heading=='ADD MEMBER'){
       this.apiService.addmember(this.member).subscribe((response)=>{
         this.dialogRef.close();

@@ -43,7 +43,7 @@ export interface DialogData {
         {value: '5', viewValue: 'Block 5'},
       ];
       units:any=[]
-    selectedunit=new unit('','','',[]);
+      selectedunit=new unit('','','','','','','','','','','','','','');
     errorMessage: string='';
     constructor(
       private apiservice:ApiService,

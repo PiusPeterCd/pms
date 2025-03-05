@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatTabsModule} from '@angular/material/tabs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +23,7 @@ export interface PeriodicElement {
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [MatGridListModule,MatTableModule, MatPaginatorModule,HttpClientModule],
+  imports: [MatGridListModule,MatTableModule, MatPaginatorModule,HttpClientModule,MatTabsModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
@@ -31,9 +32,12 @@ export class DetailsComponent implements AfterViewInit{
   private unitUrl="/assets/data/unit.json";
   private http=inject(HttpClient)
   displayedColumns: string[] = ['id', 'name','familyname' ,'no_of_members'];
+  displayedColumns2: string[] = ['id', 'name','dob' ,'gender','phone','mail','marital_status','education_status','job'];
   dataSource:any;
+  dataSource2:any;
   id: string='';
   family: any=[];
+  members: any;
   
   constructor(private apiService:ApiService,private route: ActivatedRoute){
     
@@ -58,7 +62,7 @@ export class DetailsComponent implements AfterViewInit{
     {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
     {text: 'Two', cols: 1, rows: 4, color: 'lightgreen'},
     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 3, rows: 3, color: '#DDBDF1'},
+    {text: 'Four', cols: 3, rows: 4, color: '#DDBDF1'},
   ];
   fetchUnit(){
     // this.http.get(this.unitUrl).subscribe((res:any)=>{
@@ -70,6 +74,10 @@ export class DetailsComponent implements AfterViewInit{
     this.apiService.getFamily(this.id).subscribe(response => {
       this.family=response;
       this.dataSource= new MatTableDataSource<PeriodicElement>(this.family);
+    });
+    this.apiService.getUnitMembers(this.id).subscribe(response => {
+      this.members=response;
+      this.dataSource2= new MatTableDataSource<PeriodicElement>(this.members);
     });
   }
 }

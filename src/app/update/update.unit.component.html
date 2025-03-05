@@ -30,80 +30,98 @@
       <br>
         <mat-form-field style="width: 100%;">
             <mat-label>President</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+        <mat-select [(value)]="selectedunit.president">
+          @for (member of members; track member) {
+            <mat-option  (onSelectionChange)="onSelectLeaderChange('president',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
         <br>
         <mat-form-field style="width: 100%;">
-            <mat-label>Secretory</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+          <mat-label>Vice President</mat-label>
+      <mat-select [(value)]="selectedunit.vicepresident">
+        @for (member of members; track member) {
+          <mat-option  (onSelectionChange)="onSelectLeaderChange('vicepresident',member)" [value]="member.id">{{member.name}}</mat-option>
+        }
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Secretory</mat-label>
+    <mat-select [(value)]="selectedunit.secretory">
+      @for (member of members; track member) {
+        <mat-option  (onSelectionChange)="onSelectLeaderChange('secretory',member)" [value]="member.id">{{member.name}}</mat-option>
+      }
+      </mat-select>
+    </mat-form-field>
+    <br>
+        <mat-form-field style="width: 100%;">
+            <mat-label>Join Secretory</mat-label>
+        <mat-select [(value)]="selectedunit.joinsecretory">
+          @for (member of members; track member) {
+            <mat-option (onSelectionChange)="onSelectLeaderChange('joinsecretory',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
         <br>
         <mat-form-field style="width: 100%;">
             <mat-label>Treasurer</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+        <mat-select [(value)]="selectedunit.treasurer">
+          @for (member of members; track member) {
+            <mat-option (onSelectionChange)="onSelectLeaderChange('treasurer',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
         <br>
         <p>Animators</p>
         <mat-form-field style="width: 100%;">
             <mat-label>Youth</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+        <mat-select [(value)]="selectedunit.Youth">
+          @for (member of members; track member) {
+            <mat-option (onSelectionChange)="onSelectLeaderChange('Youth',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
         <mat-form-field style="width: 100%;">
             <mat-label>Education</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+        <mat-select [(value)]="selectedunit.Education">
+          @for (member of members; track member) {
+            <mat-option (onSelectionChange)="onSelectLeaderChange('Education',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
         <br>
         <mat-form-field style="width: 100%;">
             <mat-label>Family (kudumbapreshitham)</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+        <mat-select [(value)]="selectedunit.Family">
+          @for (member of members; track member) {
+            <mat-option (onSelectionChange)="onSelectLeaderChange('Family',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
         <mat-form-field style="width: 100%;">
             <mat-label>Liturgy</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+        <mat-select [(value)]="selectedunit.Liturgy">
+          @for (member of members; track member) {
+            <mat-option (onSelectionChange)="onSelectLeaderChange('Liturgy',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
         <br>
         <mat-form-field style="width: 100%;">
             <mat-label>Social</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+        <mat-select [(value)]="selectedunit.Social">
+          @for (member of members; track member) {
+            <mat-option (onSelectionChange)="onSelectLeaderChange('Social',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
         <mat-form-field style="width: 100%;">
             <mat-label>Ajapalanam</mat-label>
-        <mat-select [(value)]="selectedunit.block_no">
-            @for (block of blocks; track block) {
-              <mat-option [value]="block.value">{{block.viewValue}}</mat-option>
-            }
+        <mat-select [(value)]="selectedunit.Ajapalanam">
+          @for (member of members; track member) {
+            <mat-option (onSelectionChange)="onSelectLeaderChange('Ajapalanam',member)" [value]="member.id">{{member.name}}</mat-option>
+          }
           </mat-select>
         </mat-form-field>
       </form>
