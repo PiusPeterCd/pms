@@ -41,7 +41,7 @@ export interface DialogData {
     displayedColumns: string[] = ['id', 'name','dob', 'update', 'delete'];
   members:any=[]
   dataSource:any;
-
+  id:any='';
  
     constructor(
       private apiservice:ApiService,
@@ -51,8 +51,8 @@ export interface DialogData {
     ) {
     }
     ngOnInit(){
-      var id:any=this.data;
-      this.apiservice.getFamilyMembers(id).subscribe(response => {
+      this.id=this.data;
+      this.apiservice.getFamilyMembers(this.id).subscribe(response => {
         this.members=response;
         this.dataSource = new MatTableDataSource(this.members);
         });
@@ -71,6 +71,12 @@ export interface DialogData {
         const dialogRef = this.dialog.open(UpdateDetailsDialog, {
          data:element
         });
+        dialogRef.afterClosed().subscribe(result => {
+        this.apiservice.getFamilyMembers(this.id).subscribe((response)=>{
+          this.members=response;
+          this.update_no(this.members.length)
+        });
+    });
     }
     onAdd(): void {
       var newmember:any={}
@@ -81,15 +87,27 @@ export interface DialogData {
         const dialogRef = this.dialog.open(UpdateDetailsDialog, {
          data:newmember
         });
+
+    dialogRef.afterClosed().subscribe(result => {
+        this.apiservice.getFamilyMembers(this.id).subscribe((response)=>{
+          this.members=response;
+          this.update_no(this.members.length)
+        });
+    });
+  }
+  update_no(number:any):void{
+    this.apiservice.getFamilyDetails(this.id).subscribe((family:any)=>{
+      family.no_of_members=number;
+      this.apiservice.updatefamily(family.id,family).subscribe((res)=>{
+      })
+    });
   }
     onDelete(element: any): void {
      this.apiservice.deletemember(element.id).subscribe((response)=>{
-      this.members=response;
-     this.apiservice.getFamily(element.familyid).subscribe((family:any)=>{
-      family.no_of_members=family.no_of_members-1;
-      this.apiservice.updatefamily(family.id,family).subscribe((res)=>{
-      })
-     })
+      this.apiservice.getFamilyMembers(this.id).subscribe((response)=>{
+        this.members=response;
+        this.update_no(this.members.length)
+      });
     
      })
   }

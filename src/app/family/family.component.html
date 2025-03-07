@@ -15,7 +15,7 @@
      
         @for (item of family.members; track item; let index = $index) {
           <div style="position: relative;">
-          <img style="width: 80px;height:80px; border:1px solid black;position: absolute;top:20px" src="{{item.photo_url}}"/>
+          <img style="width: 80px;height:80px; border:1px solid black;position: absolute;top:20px" src="/assets/photo.jpg"/>
         <div style="padding: 10px;margin-left:100px">
          
           <div class="name">{{item.id}} - {{item.name}}</div>
@@ -47,7 +47,7 @@
         <div><div  class="label"><mat-icon>wc</mat-icon> Marriage</div> on {{item.marriage_date}}, with {{item.spouce_name}} at {{item.marriage_parish}}</div>
         <br/>
         }
-        @if (item.parish_association.length>0){
+        @if (item.parish_association && item.parish_association.length>0){
         <div><div class="label"><mat-icon>people_outline</mat-icon> Associated with Parish in </div> 
           <mat-chip-listbox aria-label="Fish selection">
             @for (ass of item.parish_association; track ass;){

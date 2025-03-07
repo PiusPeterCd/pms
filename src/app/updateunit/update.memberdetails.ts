@@ -124,7 +124,7 @@ export interface DialogData {
        this.member.parish_association=this.member.parish_association.toLocaleString()
      if(this.heading=='ADD MEMBER'){
       this.apiService.addmember(this.member).subscribe((response)=>{
-        this.dialogRef.close();
+        this.dialogRef.close(this.member);
       });
      }else{
       this.apiService.updatemember(this.member.id,this.member).subscribe((response)=>{

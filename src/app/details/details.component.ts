@@ -50,17 +50,21 @@ export class DetailsComponent implements AfterViewInit{
       console.log(id);
     });
   }
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
+  @ViewChild('paginator1') paginator1!: MatPaginator;
+  @ViewChild('paginator2') paginator2!: MatPaginator;
 
   ngAfterViewInit() {
     setTimeout(()=>{
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginator1;
     },2000) 
+    setTimeout(()=>{
+      this.dataSource2.paginator = this.paginator2; 
+    },4000) 
+
   }
   tiles: Tile[] = [
     {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 4, color: 'lightgreen'},
+    {text: 'Two', cols: 1, rows: 5, color: 'lightgreen'},
     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
     {text: 'Four', cols: 3, rows: 4, color: '#DDBDF1'},
   ];

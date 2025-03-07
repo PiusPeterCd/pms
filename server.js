@@ -317,8 +317,10 @@ app.post('/addmember', (req, res) => {
   }
 
   // Parse the existing data
-  const jsonData = JSON.parse(rdata);
 
+  try {
+  const jsonData = JSON.parse(rdata);
+  JSON.parse(JSON.stringify(newData));
   // Add the new data
   jsonData.push(newData);
   fs.writeFile('members.json', JSON.stringify(jsonData, null, 2), (err) => {
@@ -327,6 +329,9 @@ app.post('/addmember', (req, res) => {
     }
     res.send({sucess:'ok'});
   });
+  }catch (e) {
+    console.error('Invalid JSON data:', e);
+  }
 });
 
 });
