@@ -72,12 +72,15 @@ export interface DialogData {
     onSelectLeaderChange(fieldname:string,value:any){
      // this.selectedunit[fieldname]=value
     }
-    onNoClick(): void {
+    onupdateClick(): void {
         if(this.selectedunit.id ==''){
             
         }else{
         console.log("update unit json",this.selectedunit)
-      this.dialogRef.close();
+        this.apiservice.updateunit(this.selectedunit.id,this.selectedunit).subscribe(response => {
+          this.dialogRef.close();
+        });
+         
         }
     }
   }

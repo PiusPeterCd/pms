@@ -401,7 +401,7 @@ app.put('/unit/:id', (req, res) => {
   const newData = req.body;
 
   // Read the existing JSON file
-  fs.readFile('unit.json', 'utf8', (err, data) => {
+  fs.readFile('units.json', 'utf8', (err, data) => {
       if (err) {
           console.error('Error reading the file:', err);
           return res.status(500).send('Error reading the file');
@@ -415,7 +415,7 @@ app.put('/unit/:id', (req, res) => {
       }
 
       // Write the updated JSON array back to the file
-      fs.writeFile('unit.json', JSON.stringify(jsonArray, null, 2), (err) => {
+      fs.writeFile('units.json', JSON.stringify(jsonArray, null, 2), (err) => {
           if (err) {
               console.error('Error writing to the file:', err);
               return res.status(500).send('Error writing to the file');

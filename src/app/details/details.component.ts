@@ -35,6 +35,7 @@ export class DetailsComponent implements AfterViewInit{
   displayedColumns2: string[] = ['id', 'name','dob' ,'gender','phone','mail','marital_status','education_status','job'];
   dataSource:any;
   dataSource2:any;
+  leader:any =[]
   id: string='';
   family: any=[];
   members: any;
@@ -82,6 +83,19 @@ export class DetailsComponent implements AfterViewInit{
     this.apiService.getUnitMembers(this.id).subscribe(response => {
       this.members=response;
       this.dataSource2= new MatTableDataSource<PeriodicElement>(this.members);
+      
+     // this.unit.president
+      // "president": "",
+      // "vicepresident": "",
+      // "secretory": "",
+      // "joinsecretory": "",
+      // "treasurer": "",
+      // "Youth": "",
+      // "Education": "",
+      // "Family": "",
+      // "Liturgy": "",
+      // "Social": "",
+      // "Ajapalanam": ""
     });
   }
 }

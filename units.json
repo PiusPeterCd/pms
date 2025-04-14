@@ -103,7 +103,15 @@
     "id": "134",
     "name": "ST FRANCIS ASSISSI",
     "block_no": "3",
-    "leaders": []
+    "leaders": [],
+    "president": "134131",
+    "vicepresident": "134201",
+    "secretory": "134242",
+    "joinsecretory": "134221",
+    "treasurer": "13412",
+    "Youth": "134194",
+    "Education": "134201",
+    "Family": "134183"
   },
   {
     "id": "141",

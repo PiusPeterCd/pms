@@ -67,7 +67,7 @@ export class ApiService {
   }
 
   // PUT: Update an existing item
-  updateunit(id: number, item: any): Observable<any> {
+  updateunit(id: string, item: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/unit/${id}`, item, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

@@ -18,7 +18,7 @@
        
               <hr/>
     <div>
-    <form (ngSubmit)="onNoClick()" #unitForm="ngForm">
+    <form #unitForm="ngForm">
       
         <mat-form-field>
         <mat-label>Block Number</mat-label>
@@ -129,7 +129,7 @@
       
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button style="margin-left:20px" mat-button cdkFocusInitial (click)="onNoClick()">Update</button>
+      <button style="margin-left:20px" mat-button cdkFocusInitial (click)="onupdateClick()">Update</button>
       <button mat-button [mat-dialog-close] >cancel</button>
     </mat-dialog-actions>
     </div>
