@@ -792,8 +792,8 @@
     "joined_on": ""
   },
   {
-    "id": "1161",
-    "unitid": "116",
+    "id": "1121",
+    "unitid": "112",
     "name": "PUTHANPURAKKAL",
     "family_head": "",
     "family_head_name": "ANDREWS",
@@ -4644,6 +4644,18 @@
     "joined_on": ""
   },
   {
+    "id": "15410",
+    "unitid": "154",
+    "name": "KORETERYPARAMBU",
+    "family_head": "",
+    "family_head_name": "JOY FRANCIS",
+    "no_of_members": 1,
+    "address": "KORATERYPARAMBU HOUSE MAMANGALAM",
+    "joined_on": "",
+    "blockname": "5",
+    "unitname": "NITHYA SAHAYA MATHA"
+  },
+  {
     "id": "15411",
     "unitid": "154",
     "name": "MOOLANKUZHY",
@@ -4822,18 +4834,6 @@
     "no_of_members": 1,
     "address": "PUTHANVEETTIL HOUSE MAMANGALAM",
     "joined_on": ""
-  },
-  {
-    "id": "15426",
-    "unitid": "154",
-    "name": "KORETERYPARAMBU",
-    "family_head": "",
-    "family_head_name": "JOY FRANCIS",
-    "no_of_members": 1,
-    "address": "KORATERYPARAMBU HOUSE MAMANGALAM",
-    "joined_on": "",
-    "blockname": "5",
-    "unitname": "NITHYA SAHAYA MATHA"
   },
   {
     "id": "1554",
