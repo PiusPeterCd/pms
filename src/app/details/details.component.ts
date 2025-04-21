@@ -83,19 +83,22 @@ export class DetailsComponent implements AfterViewInit{
     this.apiService.getUnitMembers(this.id).subscribe(response => {
       this.members=response;
       this.dataSource2= new MatTableDataSource<PeriodicElement>(this.members);
-      
-     // this.unit.president
-      // "president": "",
-      // "vicepresident": "",
-      // "secretory": "",
-      // "joinsecretory": "",
-      // "treasurer": "",
-      // "Youth": "",
-      // "Education": "",
-      // "Family": "",
-      // "Liturgy": "",
-      // "Social": "",
-      // "Ajapalanam": ""
     });
   }
+
+getNameFamilyLeader(id: any) {
+  if (this.members && Array.isArray(this.members)) {
+    const member = this.members.find((m: any) => m.id === id);
+    return member ? `${member.name}` : '';
+  }
+  return '';
+}
+
+getContactLeader(id: any) {
+  if (this.members && Array.isArray(this.members)) {
+    const member = this.members.find((m: any) => m.id === id);
+    return member ? `${member.phone}, ${member.mail}` : '';
+  }
+  return '';
+}
 }
