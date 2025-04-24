@@ -26,19 +26,87 @@
             padding: 5px 10px;
             text-transform: uppercase;
             font-weight: 500;">Leadership & Animators</div>
-            <div style="max-height: 300px;
+            <div style="max-height: 500px;
             overflow-y: scroll;">
-            @for (item of leaders; track item; let index = $index) {
-            <div class="cont" >
-                <div class="heading">{{item.position}} </div>
-                <div class="name">{{item.name}}, {{item.family}}</div>
-                <div class="phone">{{item.phone}} <span> | </span> {{item.mail}}</div>
-            </div>
-          }
+            @if(unit.president) {
+              <div class="cont" >
+                  <div class="heading">President</div>
+                  <div class="name">{{getNameFamilyLeader(unit.president)}}</div>
+                  <div class="phone">{{getContactLeader(unit.president)}}</div>
+              </div>
+            }
+            @if(unit.vicepresident) {
+              <div class="cont" >
+                  <div class="heading">Vice President</div>
+                  <div class="name">{{getNameFamilyLeader(unit.vicepresident)}}</div>
+                  <div class="phone">{{getContactLeader(unit.vicepresident)}}</div>
+              </div>
+            }
+            @if(unit.secretory) {
+              <div class="cont" >
+                  <div class="heading">Secretory</div>
+                  <div class="name">{{getNameFamilyLeader(unit.secretory)}}</div>
+                  <div class="phone">{{getContactLeader(unit.secretory)}}</div>
+              </div>
+            }
+            @if(unit.joinsecretory) {
+              <div class="cont" >
+                  <div class="heading">Join Secretory</div>
+                  <div class="name">{{getNameFamilyLeader(unit.joinsecretory)}}</div>
+                  <div class="phone">{{getContactLeader(unit.joinsecretory)}}</div>
+              </div>
+            }
+            @if(unit.treasurer) {
+              <div class="cont" >
+                  <div class="heading">Treasurer</div>
+                  <div class="name">{{getNameFamilyLeader(unit.treasurer)}}</div>
+                  <div class="phone">{{getContactLeader(unit.treasurer)}}</div>
+              </div>
+            }
+            @if(unit.Youth) {
+              <div class="cont" >
+                  <div class="heading">Youth Animator</div>
+                  <div class="name">{{getNameFamilyLeader(unit.Youth)}}</div>
+                  <div class="phone">{{getContactLeader(unit.Youth)}}</div>
+              </div>
+            }
+            @if(unit.Education) {
+              <div class="cont" >
+                  <div class="heading">Education Animator</div>
+                  <div class="name">{{getNameFamilyLeader(unit.Education)}}</div>
+                  <div class="phone">{{getContactLeader(unit.Education)}}</div>
+              </div>
+            }
+            @if(unit.Family) {
+              <div class="cont" >
+                  <div class="heading">Family Animator</div>
+                  <div class="name">{{getNameFamilyLeader(unit.Family)}}</div>
+                  <div class="phone">{{getContactLeader(unit.Family)}}</div>
+              </div>
+            }
+            @if(unit.Liturgy) {
+              <div class="cont" >
+                  <div class="heading">Liturgy Animator</div>
+                  <div class="name">{{getNameFamilyLeader(unit.Liturgy)}}</div>
+                  <div class="phone">{{getContactLeader(unit.Liturgy)}}</div>
+              </div>
+            }
+            @if(unit.Social) {
+              <div class="cont" >
+                  <div class="heading">Social Animator</div>
+                  <div class="name">{{getNameFamilyLeader(unit.Social)}}</div>
+                  <div class="phone">{{getContactLeader(unit.Social)}}</div>
+              </div>
+            }
+            @if(unit.Ajapalanam) {
+              <div class="cont" >
+                  <div class="heading">Ajapalanam</div>
+                  <div class="name">{{getNameFamilyLeader(unit.Ajapalanam)}}</div>
+                  <div class="phone">{{getContactLeader(unit.Ajapalanam)}}</div>
+              </div>
+            }
             
         </div>
-       
-           
             </div>
         </mat-grid-tile>
       
