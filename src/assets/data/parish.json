@@ -6,89 +6,73 @@
         "name":"Maxmin Joseph",
         "position":"Leader",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "phone":"+91 9446486797",
+        "mail":"",
+        "family":"Pashniparambil"
     },{
         "member_id":"11234",
-        "name":"Melvin",
-        "position":"Assistant Leader",
+        "name":"John PM",
+        "position":"Assistant Leader & vidhyabhasa susrusha coordinator",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "phone":"+91 9495843721",
+        "mail":"",
+        "family":"Poovenkeri"
     },{
         "member_id":"11234",
-        "name":"Akhil",
+        "name":"Biju George",
         "position":"Secretory",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "phone":"+91 9895269261",
+        "mail":"",
+        "family":"Kuttichakkalackal"
     },{
         "member_id":"11234",
-        "name":"Amala",
-        "position":"Joint Secretory",
+        "name":"Laiju Jolly",
+        "position":"Joint Secretory & Kudumba preshitha coordinator",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "phone":"+91 9995713245",
+        "mail":"",
+        "family":"Polayil"
     },{
         "member_id":"11234",
-        "name":"Varghese",
+        "name":"Joseph TE",
         "position":"Treasurer",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "phone":"+91 9447251454",
+        "mail":"",
+        "family":"Veliparambil"
     }],
     "coordinators":[{
         "member_id":"11234",
-        "name":"Melvin",
-        "position":"Pastrol Ministry",
+        "name":"Midhun George",
+        "position":"Ajapalana susrusha coordinator",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "phone":"+91 9562730932",
+        "mail":"",
+        "family":"Velikkakath"
     },{
         "member_id":"11234",
-        "name":"Amala",
-        "position":"Family Ministry",
+        "name":"Joymon Joy",
+        "position":"yuvajana susrusha coordinator",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "phone":"+91 8078528097",
+        "mail":"",
+        "family":"Nelliparambil"
     },{
         "member_id":"11234",
-        "name":"Biju",
-        "position":"Social Ministry",
+        "name":"Christeena Joseph",
+        "position":"Samoohika susrusha coordinator",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "phone":"+91 9497276244",
+        "mail":"",
+        "family":"Thiruvathirathopill"
     },{
         "member_id":"11234",
-        "name":"Sheena Bijoy",
-        "position":"Education Ministry",
+        "name":"Asha Milton",
+        "position":"Almaya susrusha coordinator ",
         "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
+        "phone":"+91 8593822882",
         "mail":"fff@gmail.com",
-        "family":"family name"
-    },{
-        "member_id":"11234",
-        "name":"XXX",
-        "position":"Youth Ministry",
-        "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
-    },{
-        "member_id":"11234",
-        "name":"Manoj John",
-        "position":"Laity Ministry",
-        "photourl":"/assets/person.jpg",
-        "phone":"+914567890098",
-        "mail":"fff@gmail.com",
-        "family":"family name"
+        "family":"Alashakodath"
     }]
 }
