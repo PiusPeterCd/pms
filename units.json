@@ -1,11 +1,5 @@
 [
   {
-    "id": "111",
-    "name": "st chals ",
-    "block_no": "1",
-    "leaders": []
-  },
-  {
     "id": "112",
     "name": "karmalanada",
     "block_no": "1",
@@ -180,6 +174,22 @@
     "id": "146",
     "name": "test",
     "block_no": "4",
+    "president": "",
+    "vicepresident": "",
+    "secretory": "",
+    "joinsecretory": "",
+    "treasurer": "",
+    "Youth": "",
+    "Education": "",
+    "Family": "",
+    "Liturgy": "",
+    "Social": "",
+    "Ajapalanam": ""
+  },
+  {
+    "id": "111",
+    "name": "ST CHARLES",
+    "block_no": "1",
     "president": "",
     "vicepresident": "",
     "secretory": "",
