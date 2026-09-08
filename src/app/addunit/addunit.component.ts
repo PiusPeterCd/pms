@@ -30,11 +30,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddunitComponent {
  
-  units:any=[]
-  members:any=[];
+  units:any[] = [];
+  members:any[] = [];
   errormessage:string=''
   successMessage:string=''
-  family:any=new Family('','','','','',0,'','')
+  family:any = new Family('','','','','',0,'','');
   editflag: number | null = null;
   isEditMode: boolean=false;
   constructor(public dialog: MatDialog,
@@ -101,41 +101,41 @@ export class AddunitComponent {
         return;
       }else{
         this.apiservice.getFamily(this.family.unitid).subscribe((response: any) => {
-          let familycount=response.length+1
-          var id=this.family.unitid+""+familycount;
-          this.family.id=id;
-          this.family.joined_on=this.formatDate(this.family.joined_on);
-          var count=1;
-        this.errormessage='';
-        this.apiservice.addfamily(this.family).subscribe(item => {
-          console.log(item)
-          this.members.forEach((element: Member) => {
-            element.id=this.family.id+""+count;
-            element.familyid=this.family.id;
-            element.unitid=this.family.unitid;
-            element.dob=this.formatDate(element.dob)
-            element.baptized_date=this.formatDate(element.baptized_date)
-            element.confirmation_date=this.formatDate(element.confirmation_date)
-            element.marriage_date=this.formatDate(element.marriage_date)
-            element.parish_association=element.parish_association.toLocaleString()
-            count++;
-            console.log(element)
-            this.apiservice.addmember(element).subscribe(response => {
-              this.successMessage="Member "+element.name+" added successfully"
+          const familyList = Array.isArray(response) ? response : [];
+          let familycount = familyList.length + 1;
+          var id = this.family.unitid + "" + familycount;
+          this.family.id = id;
+          this.family.joined_on = this.formatDate(this.family.joined_on);
+          var count = 1;
+          this.errormessage = '';
+
+          this.apiservice.addfamily(this.family).subscribe(() => {
+            this.members.forEach((element: Member) => {
+              element.id = this.family.id + "" + count;
+              element.familyid = this.family.id;
+              element.unitid = this.family.unitid;
+              element.dob = this.formatDate(element.dob);
+              element.baptized_date = this.formatDate(element.baptized_date);
+              element.confirmation_date = this.formatDate(element.confirmation_date);
+              element.marriage_date = this.formatDate(element.marriage_date);
+              element.parish_association = Array.isArray(element.parish_association)
+                ? element.parish_association.join(',')
+                : (element.parish_association || '');
+              count++;
+
+              this.apiservice.addmember(element).subscribe(() => {
+                this.successMessage = "Member " + element.name + " added successfully";
+              });
             });
+
+            this.family = new Family('','','','','',0,'','');
+            this.members = [];
+            this.successMessage = "Family added successfully";
+            setTimeout(() => {
+              this.successMessage = '';
+            }, 2000);
           });
-          
-              setTimeout(()=>{
-                this.family=new Family('','','','','',0,'','');
-              this.members=[]
-              this.successMessage="Family added successfully"
-              setTimeout(()=>{
-                this.successMessage=''
-              },2000)
-              },5000);
-          
         });
-      });
       }
     }
   }

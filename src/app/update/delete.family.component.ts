@@ -42,8 +42,8 @@ export interface DialogData {
         {value: '4', viewValue: 'Block 4'},
         {value: '5', viewValue: 'Block 5'},
       ];
-      units:any=[];
-      familys:any=[];
+      units:any[] = [];
+      familys:any[] = [];
     selectedfamily:any={};
     selectedfamilyunit:any={};
     errorMessage: string='';
@@ -54,24 +54,28 @@ export interface DialogData {
     ) {
     }
     ngOnInit(){
-      this.apiservice.getUnits().subscribe(response => {
-        this.units=response;
+      this.apiservice.getUnits().subscribe((response: any) => {
+        this.units = Array.isArray(response) ? response : [];
       });
     }
     onSelectChange(event: any){
-      console.log(event);
+      this.errorMessage = '';
+      this.selectedfamily = {};
+      this.familys = [];
+
       this.units.forEach((unit: unit)=> {
         if(unit.id==event.source.value){
           this.selectedfamilyunit=unit;
-          this.apiservice.getFamily(this.selectedfamilyunit.id).subscribe(response => {
-            this.familys=response;
+          this.apiservice.getFamily(this.selectedfamilyunit.id).subscribe((response: any) => {
+            this.familys = Array.isArray(response) ? response : [];
           });
         }
       });
     }
 
     onSelectChangeFamily(event: any){
-      console.log(event);
+      this.errorMessage = '';
+      this.selectedfamily = {};
       this.familys.forEach((family: any)=> {
         if(family.id==event.source.value){
           this.selectedfamily=family;

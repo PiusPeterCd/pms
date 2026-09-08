@@ -42,10 +42,10 @@ export interface DialogData {
         {value: '4', viewValue: 'Block 4'},
         {value: '5', viewValue: 'Block 5'},
       ];
-      units:any=[];
-      members:any=[];
+      units:any[] = [];
+      members:any[] = [];
       
-    selectedunit=new unit('','','','','','','','','','','','','','');
+    selectedunit: unit = new unit('','','','','','','','','','','','','','');
     constructor(
       private apiservice:ApiService,
       public dialogRef: MatDialogRef<UpdateUnitDialog>,
@@ -53,35 +53,43 @@ export interface DialogData {
     ) {
     }
     ngOnInit(){
-      this.apiservice.getUnits().subscribe(response => {
-        this.units=response;
+      this.apiservice.getUnits().subscribe((response: any) => {
+        this.units = Array.isArray(response) ? response : [];
       });
       
     }
     onSelectChange(event: any){
-      console.log(event);
+      this.members = [];
+      const selectedId = event?.source?.value;
+      if (!selectedId) {
+        return;
+      }
+
       this.units.forEach((unit: unit)=> {
-        if(unit.id==event.source.value){
+        if(unit.id==selectedId){
           this.selectedunit=unit;
         }
       });
-      this.apiservice.getUnitMembers(this.selectedunit.id).subscribe(response => {
-        this.members=response;
+
+      if (!this.selectedunit || !this.selectedunit.id) {
+        return;
+      }
+
+      this.apiservice.getUnitMembers(this.selectedunit.id).subscribe((response: any) => {
+        this.members = Array.isArray(response) ? response : [];
       });
     }
     onSelectLeaderChange(fieldname:string,value:any){
      // this.selectedunit[fieldname]=value
     }
     onupdateClick(): void {
-        if(this.selectedunit.id ==''){
-            
-        }else{
-        console.log("update unit json",this.selectedunit)
-        this.apiservice.updateunit(this.selectedunit.id,this.selectedunit).subscribe(response => {
+        if(!this.selectedunit || this.selectedunit.id === ''){
+            return;
+        }
+
+        this.apiservice.updateunit(this.selectedunit.id, this.selectedunit).subscribe(() => {
           this.dialogRef.close();
         });
-         
-        }
     }
   }
   

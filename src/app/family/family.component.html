@@ -1,79 +1,102 @@
-<div style="padding: 20px;">
-  <h1 style="    text-transform: capitalize;
-  background-color: #2a557b;
-  padding: 10px 20px;
-  color: #fff;">{{family.name}} Family</h1>
-  <div style="padding-left: 20px;">
-  <div>FAMILY ID <b>{{family.id}}</b> . {{family.name}} {{family.family_head_name}}'s family consist of {{family.members.length}} members</div>
-  <div>Joined our parish from {{family.joined_on}}</div>
-  <div>Residing at: {{family.address}}</div>
-</div>
+<div class="family-page">
+  <header class="family-header">
+    <div>
+      <p class="eyebrow">Parish Family Profile</p>
+      <h1>{{ family?.name || 'Family' }} Family</h1>
+      <p class="family-head">Family head: <strong>{{ family?.family_head_name || 'Not recorded' }}</strong></p>
+    </div>
+    <div class="family-id">ID {{ family?.id || 'N/A' }}</div>
+  </header>
 
-  <h2 style="padding: 10px 20px;"><mat-icon>people</mat-icon> Family Members</h2>
-  <mat-tab-group style="padding: 0px 40px;">
-    <mat-tab label="Basic Info"> 
-     
-        @for (item of family.members; track item; let index = $index) {
-          <div style="position: relative;">
-          <img style="width: 80px;height:80px; border:1px solid black;position: absolute;top:20px" src="/assets/photo.jpg"/>
-        <div style="padding: 10px;margin-left:100px">
-         
-          <div class="name">{{item.id}} - {{item.name}}</div>
-          <div><span class="label">Date of Birth <mat-icon style="    width: 16px;
-            font-size: 14px;
-            height: 13px;">event_available</mat-icon></span> {{item.dob}}</div>
-          <div><span class="label">contact <mat-icon style="    width: 16px;
-            font-size: 14px;
-            height: 13px;">phone_in_talk</mat-icon></span> {{item.phone}} | {{item.mail}}</div>
-          <div><span class="label">Gender : </span> {{item.gender}}</div>
-          <div><span class="label">Father, </span> {{item.father}}</div>
-          <div><span class="label">Mother, </span> {{item.mother}}</div>
-        </div>
-        </div>
-        <mat-divider></mat-divider>
-      }
-     
-    </mat-tab>
-    <mat-tab label="Parish Records"> 
-      @for (item of family.members; track item; let index = $index) {
-      <div style="padding:10px 20px">
-        <div class="name">{{item.name}}</div>
-        <br/>
-        <div><div class="label"><mat-icon>child_care</mat-icon> Baptism</div>  {{item.baptized_date}} | at {{item.baptized_parish}}</div>
-        <br/>
-        <div><div class="label"><mat-icon>event_note</mat-icon> Confirmation </div> {{item.confirmation_date}} | at {{item.confirmation_parish}}</div>
-        <br/>
-        @if (item.marital_status=='Married'){
-        <div><div  class="label"><mat-icon>wc</mat-icon> Marriage</div> on {{item.marriage_date}}, with {{item.spouce_name}} at {{item.marriage_parish}}</div>
-        <br/>
-        }
-        @if (item.parish_association && item.parish_association.length>0){
-        <div><div class="label"><mat-icon>people_outline</mat-icon> Associated with Parish in </div> 
-          <mat-chip-listbox aria-label="Fish selection">
-            @for (ass of item.parish_association; track ass;){
-            <mat-chip-option>{{ass}}</mat-chip-option>
-          }
-            </mat-chip-listbox>
+  <section class="family-summary" aria-label="Family summary">
+    <div class="summary-item">
+      <mat-icon>people</mat-icon>
+      <div><span class="summary-label">Members</span><strong>{{ family?.members?.length || 0 }}</strong></div>
+    </div>
+    <div class="summary-item">
+      <mat-icon>event</mat-icon>
+      <div><span class="summary-label">Joined Parish</span><strong>{{ family?.joined_on || 'Not recorded' }}</strong></div>
+    </div>
+    <div class="summary-item">
+      <mat-icon>place</mat-icon>
+      <div><span class="summary-label">Address</span><strong>{{ family?.address || 'Not recorded' }}</strong></div>
+    </div>
+  </section>
 
-        </div>
-      }
-       
+  <section class="members-panel">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Household records</p>
+        <h2><mat-icon>groups</mat-icon> Family Members</h2>
       </div>
-      <mat-divider></mat-divider>
-    } </mat-tab>
-    <mat-tab label="Other Info"> 
-      @for (item of family.members; track item; let index = $index) {
-        <div style="padding:10px 20px">
-          <div class="name">{{item.name}}</div>
-          <br/>
-          <div><div class="label"><mat-icon>school</mat-icon> Education</div>  {{item.education_status}}, {{item.qualification}}</div>
-         <br/>
-          <div><div class="label"><mat-icon>location_city</mat-icon> Occupation</div>  {{item.job}}</div>
-          </div>
-          <mat-divider></mat-divider>
-        }
-    </mat-tab>
-  </mat-tab-group>
- 
+      <span class="member-count">{{ family?.members?.length || 0 }} total</span>
+    </div>
+
+    <mat-tab-group class="family-tabs">
+      <mat-tab label="Basic Info">
+        <div class="member-list">
+          @for (item of family?.members ?? []; track item) {
+            <article class="member-card">
+              <img class="member-photo" src="/assets/photo.jpg" alt="Member profile">
+              <div class="member-details">
+                <div class="member-title"><span>{{ item.id }}</span><strong>{{ item.name }}</strong></div>
+                <div class="detail-grid">
+                  <div><span class="label"><mat-icon>event</mat-icon> Date of birth</span>{{ item.dob || 'Not recorded' }}</div>
+                  <div><span class="label"><mat-icon>phone</mat-icon> Contact</span>{{ item.phone || 'Not recorded' }}<span class="muted">{{ item.mail }}</span></div>
+                  <div><span class="label"><mat-icon>wc</mat-icon> Gender</span>{{ item.gender || 'Not recorded' }}</div>
+                  <div><span class="label"><mat-icon>family_restroom</mat-icon> Parents</span>{{ item.father || 'Not recorded' }} / {{ item.mother || 'Not recorded' }}</div>
+                </div>
+              </div>
+            </article>
+          } @empty {
+            <p class="empty-state">No members have been recorded for this family.</p>
+          }
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Parish Records">
+        <div class="record-list">
+          @for (item of family?.members ?? []; track item) {
+            <article class="record-card">
+              <h3>{{ item.name }}</h3>
+              <div class="record-grid">
+                <div><span class="label"><mat-icon>child_care</mat-icon> Baptism</span>{{ item.baptized_date || 'Not recorded' }} <span class="muted">{{ item.baptized_parish }}</span></div>
+                <div><span class="label"><mat-icon>event_note</mat-icon> Confirmation</span>{{ item.confirmation_date || 'Not recorded' }} <span class="muted">{{ item.confirmation_parish }}</span></div>
+                @if (item.marital_status === 'Married' || item.marital_status === true) {
+                  <div><span class="label"><mat-icon>wc</mat-icon> Marriage</span>{{ item.marriage_date || 'Not recorded' }} <span class="muted">{{ item.spouse_name }} {{ item.marriage_parish }}</span></div>
+                }
+              </div>
+              @if (item.parish_association && item.parish_association.length > 0) {
+                <div class="association-row">
+                  <span class="label"><mat-icon>diversity_3</mat-icon> Parish associations</span>
+                  <mat-chip-listbox aria-label="Parish associations">
+                    @for (ass of item.parish_association; track ass) { <mat-chip-option>{{ ass }}</mat-chip-option> }
+                  </mat-chip-listbox>
+                </div>
+              }
+            </article>
+          } @empty {
+            <p class="empty-state">No parish records have been recorded.</p>
+          }
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Other Info">
+        <div class="record-list">
+          @for (item of family?.members ?? []; track item) {
+            <article class="record-card">
+              <h3>{{ item.name }}</h3>
+              <div class="record-grid">
+                <div><span class="label"><mat-icon>school</mat-icon> Education</span>{{ item.education_status || 'Not recorded' }}<span class="muted">{{ item.qualification }}</span></div>
+                <div><span class="label"><mat-icon>work</mat-icon> Occupation</span>{{ item.job || 'Not recorded' }}<span class="muted">{{ item.workplace }}</span></div>
+              </div>
+            </article>
+          } @empty {
+            <p class="empty-state">No additional information has been recorded.</p>
+          }
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </section>
 </div>
 

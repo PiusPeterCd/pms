@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import {MatGridListModule} from '@angular/material/grid-list';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 export interface Tile {
   color: string;
@@ -23,7 +25,7 @@ export interface PeriodicElement {
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [MatGridListModule,MatTableModule, MatPaginatorModule,HttpClientModule,MatTabsModule],
+  imports: [MatGridListModule,MatTableModule, MatPaginatorModule,HttpClientModule,MatTabsModule, MatFormFieldModule, MatInputModule, RouterLink],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
@@ -33,12 +35,12 @@ export class DetailsComponent implements AfterViewInit{
   private http=inject(HttpClient)
   displayedColumns: string[] = ['id', 'name','familyname' ,'no_of_members'];
   displayedColumns2: string[] = ['id', 'name','dob' ,'gender','phone','mail','marital_status','education_status','job'];
-  dataSource:any;
-  dataSource2:any;
+  dataSource = new MatTableDataSource<any>([]);
+  dataSource2 = new MatTableDataSource<any>([]);
   leader:any =[]
   id: string='';
-  family: any=[];
-  members: any;
+  family: any[] = [];
+  members: any[] = [];
   
   constructor(private apiService:ApiService,private route: ActivatedRoute){
     
@@ -55,13 +57,12 @@ export class DetailsComponent implements AfterViewInit{
   @ViewChild('paginator2') paginator2!: MatPaginator;
 
   ngAfterViewInit() {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.dataSource.paginator = this.paginator1;
-    },2000) 
-    setTimeout(()=>{
-      this.dataSource2.paginator = this.paginator2; 
-    },4000) 
-
+    }, 2000);
+    setTimeout(() => {
+      this.dataSource2.paginator = this.paginator2;
+    }, 4000);
   }
   tiles: Tile[] = [
     {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
@@ -70,20 +71,51 @@ export class DetailsComponent implements AfterViewInit{
     {text: 'Four', cols: 3, rows: 4, color: '#DDBDF1'},
   ];
   fetchUnit(){
-    // this.http.get(this.unitUrl).subscribe((res:any)=>{
-    //   this.unit=res as any;
-    // })
+    if (!this.id) {
+      return;
+    }
+
     this.apiService.getUnit(this.id).subscribe(response => {
-      this.unit=response;
+      this.unit = response || {};
     });
+
     this.apiService.getFamily(this.id).subscribe(response => {
-      this.family=response;
-      this.dataSource= new MatTableDataSource<PeriodicElement>(this.family);
+      this.family = Array.isArray(response) ? response : [];
+      this.dataSource = new MatTableDataSource<PeriodicElement>(this.family);
+      this.dataSource.filterPredicate = (family: any, filter: string) =>
+        String(family.name || '').toLowerCase().includes(filter);
+      if (this.paginator1) {
+        this.dataSource.paginator = this.paginator1;
+      }
     });
+
     this.apiService.getUnitMembers(this.id).subscribe(response => {
-      this.members=response;
-      this.dataSource2= new MatTableDataSource<PeriodicElement>(this.members);
+      this.members = Array.isArray(response) ? response : [];
+      this.dataSource2 = new MatTableDataSource<PeriodicElement>(this.members);
+      this.dataSource2.filterPredicate = (member: any, filter: string) =>
+        String(member.name || '').toLowerCase().includes(filter);
+      if (this.paginator2) {
+        this.dataSource2.paginator = this.paginator2;
+      }
     });
+  }
+
+  applyFamilyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  applyMemberFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource2.filter = filterValue;
+
+    if (this.dataSource2.paginator) {
+      this.dataSource2.paginator.firstPage();
+    }
   }
 
 getNameFamilyLeader(id: any) {

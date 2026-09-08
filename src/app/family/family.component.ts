@@ -18,25 +18,29 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './family.component.css'
 })
 export class FamilyComponent {
-  family:any={};
- id:string='';
-  constructor(private apiservice:ApiService,private route: ActivatedRoute){
-    
-    
-  }
+  family: any = { members: [] };
+  id: string = '';
+
+  constructor(private apiservice: ApiService, private route: ActivatedRoute) {}
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      var id = params.get('id'); // Replace 'id' with your parameter name
-      this.id=id?id:'';
+      const id = params.get('id');
+      this.id = id ? id : '';
       this.fetchfamily();
-      console.log(id);
     });
   }
-  fetchfamily(){
-    this.apiservice.getFamilyDetails(this.id).subscribe(response => {
-      this.family=response;
-      this.apiservice.getFamilyMembers(this.id).subscribe(response => {
-        this.family.members=response;
+
+  fetchfamily() {
+    if (!this.id) {
+      return;
+    }
+
+    this.apiservice.getFamilyDetails(this.id).subscribe((response: any) => {
+      this.family = response || { members: [] };
+
+      this.apiservice.getFamilyMembers(this.id).subscribe((membersResponse: any) => {
+        this.family.members = Array.isArray(membersResponse) ? membersResponse : [];
       });
     });
   }

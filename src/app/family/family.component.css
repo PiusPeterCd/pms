@@ -1,8 +1,94 @@
-.name{
-    font-size: 16px;
-    font-weight: 500;
+.family-page {
+    min-height: 100vh;
+    padding: 24px;
+    background: #f5f7f2;
+    color: #1f2937;
 }
-.label{
-    color:rgb(81, 7, 150);
-    font-weight: 500;
+
+.family-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 24px 28px;
+    color: #fff;
+    background: linear-gradient(135deg, #d96f2e, #c95f1a);
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 6px 20px rgba(157, 92, 38, 0.16);
+}
+
+.eyebrow {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .85;
+}
+
+.family-header h1 {
+    margin: 0;
+    font-size: 32px;
+    text-transform: capitalize;
+}
+
+.family-head { margin: 8px 0 0; color: #fff8ef; }
+.family-id { padding: 10px 16px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; font-weight: 700; }
+
+.family-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    padding: 20px 0;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, .05);
+}
+
+.summary-item mat-icon { color: #2f6b40; }
+.summary-item strong, .summary-label { display: block; }
+.summary-label { margin-bottom: 4px; color: #667085; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+
+.members-panel { padding: 20px; background: #fff; border: 1px solid #e7ebee; border-radius: 14px; box-shadow: 0 4px 18px rgba(15, 23, 42, .06); }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+.section-heading .eyebrow { color: #856b3c; margin-bottom: 4px; }
+.section-heading h2 { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 22px; }
+.section-heading h2 mat-icon { color: #2f6b40; }
+.member-count { padding: 7px 12px; color: #2f6b40; background: #f0f5ef; border-radius: 999px; font-size: 13px; font-weight: 700; }
+.family-tabs { margin-top: 12px; }
+
+.member-list, .record-list { padding-top: 18px; }
+.member-card, .record-card { padding: 18px; margin-bottom: 14px; background: #fbfcfa; border: 1px solid #e1e8df; border-radius: 12px; }
+.member-card { display: flex; gap: 18px; }
+.member-photo { width: 80px; height: 80px; flex: 0 0 80px; object-fit: cover; border: 2px solid #d6c996; border-radius: 50%; }
+.member-details { min-width: 0; flex: 1; }
+.member-title { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.member-title span { color: #856b3c; font-size: 12px; font-weight: 700; }
+.member-title strong, .record-card h3 { color: #1f2937; font-size: 18px; }
+.record-card h3 { margin: 0 0 16px; }
+.detail-grid, .record-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 22px; }
+.detail-grid > div, .record-grid > div { line-height: 1.5; }
+.label { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; color: #2f6b40; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.label mat-icon { width: 16px; height: 16px; font-size: 16px; }
+.muted { display: block; color: #667085; font-size: 13px; }
+.association-row { margin-top: 18px; padding-top: 14px; border-top: 1px solid #e1e8df; }
+.association-row mat-chip-listbox { display: block; }
+.empty-state { padding: 32px 16px; color: #667085; text-align: center; background: #fbfcfa; border: 1px dashed #cbd5e1; border-radius: 10px; }
+
+@media (max-width: 760px) {
+    .family-page { padding: 14px; }
+    .family-header { align-items: flex-start; flex-direction: column; padding: 20px; }
+    .family-header h1 { font-size: 27px; }
+    .family-summary, .detail-grid, .record-grid { grid-template-columns: 1fr; }
+    .members-panel { padding: 14px; }
+    .section-heading { align-items: flex-start; flex-direction: column; }
+    .member-card { gap: 12px; padding: 14px; }
 }

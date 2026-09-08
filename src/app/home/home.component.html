@@ -1,28 +1,60 @@
-<div style="padding:0px 50px">
-    <div style="height: 100px; background-color: #da7029;position: relative;">
-        <p class="header">Mount Carmel Church, Mamangalam</p>
-        <img style="    width: 133px;
-        position: absolute;
-        top: 0px;
-        right: -50px;" src="/assets/church.jpg"/>
-         <img style="height: 100px;
-         width: 100px;
-         position: absolute;
-         top: 0px;left:-50px" src="/assets/sddefault.jpg"/>
-    </div>
-    <mat-tab-group dynamicHeight>
-        <mat-tab label="VIEW FAMILY"> 
+<div class="home-page">
+    <header class="hero">
+        <div class="hero-copy">
+            <p class="eyebrow">Parish management portal</p>
+            <h1>Mount Carmel Church</h1>
+            <p class="hero-location">Mamangalam</p>
+            <p class="hero-description">A single place to explore family units, maintain parish records, and prepare certificates.</p>
+        </div>
+    </header>
+
+    <section class="overview" aria-label="Portal overview">
+        <div class="overview-heading">
+            <p class="eyebrow">Start here</p>
+            <h2>Everything for the parish, in one view</h2>
+            <p>Select a section below to browse records, make changes, or issue a certificate.</p>
+        </div>
+
+        <div class="overview-grid">
+            <article class="overview-item view-item">
+                <span class="overview-number">01</span>
+                <div>
+                    <h3>View families</h3>
+                    <p>Browse blocks, family units, members, and leadership details.</p>
+                </div>
+            </article>
+            <article class="overview-item update-item">
+                <span class="overview-number">02</span>
+                <div>
+                    <h3>Update records</h3>
+                    <p>Add or maintain units, families, members, and parish roles.</p>
+                </div>
+            </article>
+            <article class="overview-item certificate-item">
+                <span class="overview-number">03</span>
+                <div>
+                    <h3>Create certificates</h3>
+                    <p>Prepare a clear certificate preview and download it as a PDF.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <mat-tab-group class="home-tabs" dynamicHeight>
+        <mat-tab label="VIEW FAMILY">
             <ng-template matTabContent>
-               <app-view></app-view>
-              </ng-template>
+                <app-view></app-view>
+            </ng-template>
         </mat-tab>
-        <mat-tab label="UPDATE FAMILY"> 
+        <mat-tab label="UPDATE FAMILY">
             <ng-template matTabContent>
                 <app-update></app-update>
-               </ng-template> </mat-tab>
-               <mat-tab label="CERTIFICATE"> 
-                <ng-template matTabContent>
-                    <app-certificate></app-certificate>
-                   </ng-template> </mat-tab>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="CERTIFICATE">
+            <ng-template matTabContent>
+                <app-certificate></app-certificate>
+            </ng-template>
+        </mat-tab>
     </mat-tab-group>
 </div>

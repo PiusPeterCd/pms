@@ -1,0 +1,231 @@
+.certificate-page {
+  padding: 24px;
+  font-family: Arial, sans-serif;
+  color: #1f2937;
+}
+
+.certificate-form-panel {
+  max-width: 900px;
+  margin: 0 auto 18px auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.section-title {
+  margin: 0 0 8px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #2f3e46;
+  text-align: center;
+}
+
+.section-subtitle {
+  margin: 0 0 20px;
+  text-align: center;
+  color: #5f6b7a;
+  font-size: 14px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.action-row {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.divider {
+  border: none;
+  border-top: 2px solid #cbd5e1;
+  margin: 28px 0 18px;
+}
+
+.certificate-preview-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.certificate-tools {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.certificate-card {
+  background: #fffdf8;
+  border: 2px solid #2f5d50;
+  border-radius: 14px;
+  padding: 28px 32px 18px;
+  box-shadow: 0 8px 20px rgba(39, 39, 39, 0.07);
+  min-height: 640px;
+  position: relative;
+}
+
+.certificate-card::before,
+.certificate-card::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px solid #c7b77a;
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.certificate-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #d6c996;
+}
+
+.church-mark {
+  width: 78px;
+  height: 78px;
+  border: 2px solid #8a6c35;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a6c35;
+  font-weight: 700;
+}
+
+.badge {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.certificate-title-wrap {
+  text-align: center;
+  flex: 1;
+}
+
+.church-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1d3557;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.certificate-title {
+  margin-top: 8px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #2a2a2a;
+}
+
+.certificate-no {
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+  padding-top: 8px;
+}
+
+.certificate-body {
+  position: relative;
+  z-index: 1;
+  padding-top: 30px;
+  text-align: center;
+  line-height: 1.9;
+  color: #1f2937;
+}
+
+.intro {
+  font-size: 20px;
+  margin: 0;
+}
+
+.recipient-name {
+  margin: 18px 0 8px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  text-transform: uppercase;
+}
+
+.statement {
+  margin: 0;
+  font-size: 18px;
+}
+
+.statement strong {
+  font-weight: 700;
+}
+
+.certificate-signature-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 36px;
+  padding-top: 16px;
+  border-top: 2px solid #d6c996;
+}
+
+.seal-box,
+.signature-box {
+  width: 180px;
+  text-align: center;
+}
+
+.seal-label,
+.signature-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #374151;
+}
+
+.seal-mark {
+  margin-top: 12px;
+  font-size: 38px;
+  color: #8a6c35;
+}
+
+.signature-line {
+  height: 2px;
+  background: #374151;
+  margin: 0 0 10px;
+}
+
+@media (max-width: 700px) {
+  .certificate-page {
+    padding: 14px;
+  }
+
+  .certificate-card {
+    padding: 18px 16px 14px;
+  }
+
+  .certificate-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .certificate-title {
+    font-size: 22px;
+  }
+
+  .recipient-name {
+    font-size: 24px;
+  }
+}

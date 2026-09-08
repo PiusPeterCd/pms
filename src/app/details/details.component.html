@@ -1,230 +1,235 @@
-<div>
-    <mat-grid-list cols="4" rowHeight="130px">
-        
-          <mat-grid-tile
-            [colspan]="tiles[0].cols"
-            [rowspan]="tiles[0].rows"
-            [style.background]="tiles[0].color">
-            <div style="padding: 20px;" >
-               <h2 style=" margin-top: 30px;
-               text-transform: capitalize; text-align: center;
-               font-size: 25px;"> {{unit.name}} BCC</h2>
-               <div style="color: rgb(53, 52, 52);">
-                <p> <span> {{unit.name}} belongs to Block no {{unit.block_no}} . </span>
-              BCC consist of <b>{{family.length}}</b> families with total <b>{{members.length}}</b> members. 
-                
-                </p></div>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile
-            [colspan]="tiles[1].cols"
-            [rowspan]="tiles[1].rows"
-            [style.background]="tiles[1].color">
-            <div style="    width: 100%;">
-            <div style="background-color: #4b834b;
-            color: white;
-            padding: 5px 10px;
-            text-transform: uppercase;
-            font-weight: 500;">Leadership & Animators</div>
-            <div style="max-height: 500px;
-            overflow-y: scroll;">
-            @if(unit.president) {
-              <div class="cont" >
-                  <div class="heading">President</div>
-                  <div class="name">{{getNameFamilyLeader(unit.president)}}</div>
-                  <div class="phone">{{getContactLeader(unit.president)}}</div>
-              </div>
-            }
-            @if(unit.vicepresident) {
-              <div class="cont" >
-                  <div class="heading">Vice President</div>
-                  <div class="name">{{getNameFamilyLeader(unit.vicepresident)}}</div>
-                  <div class="phone">{{getContactLeader(unit.vicepresident)}}</div>
-              </div>
-            }
-            @if(unit.secretory) {
-              <div class="cont" >
-                  <div class="heading">Secretory</div>
-                  <div class="name">{{getNameFamilyLeader(unit.secretory)}}</div>
-                  <div class="phone">{{getContactLeader(unit.secretory)}}</div>
-              </div>
-            }
-            @if(unit.joinsecretory) {
-              <div class="cont" >
-                  <div class="heading">Join Secretory</div>
-                  <div class="name">{{getNameFamilyLeader(unit.joinsecretory)}}</div>
-                  <div class="phone">{{getContactLeader(unit.joinsecretory)}}</div>
-              </div>
-            }
-            @if(unit.treasurer) {
-              <div class="cont" >
-                  <div class="heading">Treasurer</div>
-                  <div class="name">{{getNameFamilyLeader(unit.treasurer)}}</div>
-                  <div class="phone">{{getContactLeader(unit.treasurer)}}</div>
-              </div>
-            }
-            @if(unit.Youth) {
-              <div class="cont" >
-                  <div class="heading">Youth Animator</div>
-                  <div class="name">{{getNameFamilyLeader(unit.Youth)}}</div>
-                  <div class="phone">{{getContactLeader(unit.Youth)}}</div>
-              </div>
-            }
-            @if(unit.Education) {
-              <div class="cont" >
-                  <div class="heading">Education Animator</div>
-                  <div class="name">{{getNameFamilyLeader(unit.Education)}}</div>
-                  <div class="phone">{{getContactLeader(unit.Education)}}</div>
-              </div>
-            }
-            @if(unit.Family) {
-              <div class="cont" >
-                  <div class="heading">Family Animator</div>
-                  <div class="name">{{getNameFamilyLeader(unit.Family)}}</div>
-                  <div class="phone">{{getContactLeader(unit.Family)}}</div>
-              </div>
-            }
-            @if(unit.Liturgy) {
-              <div class="cont" >
-                  <div class="heading">Liturgy Animator</div>
-                  <div class="name">{{getNameFamilyLeader(unit.Liturgy)}}</div>
-                  <div class="phone">{{getContactLeader(unit.Liturgy)}}</div>
-              </div>
-            }
-            @if(unit.Social) {
-              <div class="cont" >
-                  <div class="heading">Social Animator</div>
-                  <div class="name">{{getNameFamilyLeader(unit.Social)}}</div>
-                  <div class="phone">{{getContactLeader(unit.Social)}}</div>
-              </div>
-            }
-            @if(unit.Ajapalanam) {
-              <div class="cont" >
-                  <div class="heading">Ajapalanam</div>
-                  <div class="name">{{getNameFamilyLeader(unit.Ajapalanam)}}</div>
-                  <div class="phone">{{getContactLeader(unit.Ajapalanam)}}</div>
-              </div>
-            }
-            
-        </div>
-            </div>
-        </mat-grid-tile>
-      
-       
-        <mat-grid-tile
-            [colspan]="tiles[3].cols"
-            [rowspan]="tiles[3].rows"
-            [style.background]="tiles[3].color">
-            <mat-tab-group style="padding: 0px 40px;">
-              <mat-tab label="Families"> 
-            <div>
-                <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="dataSource">
-                  
-                      <!-- Position Column -->
-                      <ng-container matColumnDef="id">
-                        <th mat-header-cell *matHeaderCellDef> ID </th>
-                        <td mat-cell *matCellDef="let element"><a href="/family/{{element.id}}"> {{element.id}}</a> </td>
-                      </ng-container>
-                  
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef> Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.family_head_name}} </td>
-                      </ng-container>
-                  
-                      <!-- Weight Column -->
-                      <ng-container matColumnDef="familyname">
-                        <th mat-header-cell *matHeaderCellDef> Family Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                      </ng-container>
-                  
-                      <!-- Symbol Column -->
-                      <ng-container matColumnDef="no_of_members">
-                        <th mat-header-cell *matHeaderCellDef> Total Members</th>
-                        <td mat-cell *matCellDef="let element"> {{element.no_of_members}} </td>
-                      </ng-container>
+<div class="details-page">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Parish Unit Overview</p>
+      <h2>{{ unit?.name || 'Unit' }} BCC</h2>
+    </div>
+    <div class="summary-pill">Block {{ unit?.block_no || 'N/A' }}</div>
+  </div>
 
-                     
-                  
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                  
-                    <mat-paginator #paginator1 [pageSizeOptions]="[5, 10, 20]"
-                                   showFirstLastButtons
-                                   aria-label="Select page of periodic elements">
-                    </mat-paginator>
-                  </div>
+  <div class="details-layout">
+    <aside class="leader-panel">
+      <div class="panel-header">Leadership & Animators</div>
+      <div class="leader-list">
+        @if(unit.president) {
+          <div class="leader-item">
+            <div class="role">President</div>
+            <div class="name">{{ getNameFamilyLeader(unit.president) }}</div>
+            <div class="contact">{{ getContactLeader(unit.president) }}</div>
+          </div>
+        }
+        @if(unit.vicepresident) {
+          <div class="leader-item">
+            <div class="role">Vice President</div>
+            <div class="name">{{ getNameFamilyLeader(unit.vicepresident) }}</div>
+            <div class="contact">{{ getContactLeader(unit.vicepresident) }}</div>
+          </div>
+        }
+        @if(unit.secretory) {
+          <div class="leader-item">
+            <div class="role">Secretary</div>
+            <div class="name">{{ getNameFamilyLeader(unit.secretory) }}</div>
+            <div class="contact">{{ getContactLeader(unit.secretory) }}</div>
+          </div>
+        }
+        @if(unit.joinsecretory) {
+          <div class="leader-item">
+            <div class="role">Joint Secretary</div>
+            <div class="name">{{ getNameFamilyLeader(unit.joinsecretory) }}</div>
+            <div class="contact">{{ getContactLeader(unit.joinsecretory) }}</div>
+          </div>
+        }
+        @if(unit.treasurer) {
+          <div class="leader-item">
+            <div class="role">Treasurer</div>
+            <div class="name">{{ getNameFamilyLeader(unit.treasurer) }}</div>
+            <div class="contact">{{ getContactLeader(unit.treasurer) }}</div>
+          </div>
+        }
+        @if(unit.Youth) {
+          <div class="leader-item">
+            <div class="role">Youth Animator</div>
+            <div class="name">{{ getNameFamilyLeader(unit.Youth) }}</div>
+            <div class="contact">{{ getContactLeader(unit.Youth) }}</div>
+          </div>
+        }
+        @if(unit.Education) {
+          <div class="leader-item">
+            <div class="role">Education Animator</div>
+            <div class="name">{{ getNameFamilyLeader(unit.Education) }}</div>
+            <div class="contact">{{ getContactLeader(unit.Education) }}</div>
+          </div>
+        }
+        @if(unit.Family) {
+          <div class="leader-item">
+            <div class="role">Family Animator</div>
+            <div class="name">{{ getNameFamilyLeader(unit.Family) }}</div>
+            <div class="contact">{{ getContactLeader(unit.Family) }}</div>
+          </div>
+        }
+        @if(unit.Liturgy) {
+          <div class="leader-item">
+            <div class="role">Liturgy Animator</div>
+            <div class="name">{{ getNameFamilyLeader(unit.Liturgy) }}</div>
+            <div class="contact">{{ getContactLeader(unit.Liturgy) }}</div>
+          </div>
+        }
+        @if(unit.Social) {
+          <div class="leader-item">
+            <div class="role">Social Animator</div>
+            <div class="name">{{ getNameFamilyLeader(unit.Social) }}</div>
+            <div class="contact">{{ getContactLeader(unit.Social) }}</div>
+          </div>
+        }
+        @if(unit.Ajapalanam) {
+          <div class="leader-item">
+            <div class="role">Ajapalanam</div>
+            <div class="name">{{ getNameFamilyLeader(unit.Ajapalanam) }}</div>
+            <div class="contact">{{ getContactLeader(unit.Ajapalanam) }}</div>
+          </div>
+        }
+      </div>
+    </aside>
+
+    <main class="content-panel">
+      <div class="info-card">
+        <div class="info-item">
+          <span class="label">Families</span>
+          <span class="value">{{ family.length || 0 }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Members</span>
+          <span class="value">{{ members.length || 0 }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Unit</span>
+          <span class="value">{{ unit?.name || 'N/A' }}</span>
+        </div>
+      </div>
+
+      <mat-tab-group class="detail-tabs">
+        <mat-tab label="Families">
+          <div class="table-toolbar">
+            <div>
+              <h3>Families in this unit</h3>
+              <p>Search by family name to find a household quickly.</p>
             </div>
-            </mat-tab>
-            <mat-tab label="Members"> 
-              <div>
-                  <div class="mat-elevation-z8">
-                      <table mat-table [dataSource]="dataSource2">
-                    
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="id">
-                          <th mat-header-cell *matHeaderCellDef> ID </th>
-                          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                        </ng-container>
-                    
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                          <th mat-header-cell *matHeaderCellDef> Name </th>
-                          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                        </ng-container>
-                    
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="dob">
-                          <th mat-header-cell *matHeaderCellDef> DoB </th>
-                          <td mat-cell *matCellDef="let element"> {{element.dob}} </td>
-                        </ng-container>
-                    
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="gender">
-                          <th mat-header-cell *matHeaderCellDef> Gender</th>
-                          <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
-                        </ng-container>
-  
-                          <!-- Name Column -->
-                          <ng-container matColumnDef="phone">
-                            <th mat-header-cell *matHeaderCellDef> Phone </th>
-                            <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-                          </ng-container>
-                      
-                          <!-- Weight Column -->
-                          <ng-container matColumnDef="mail">
-                            <th mat-header-cell *matHeaderCellDef> Mail </th>
-                            <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
-                          </ng-container>
-                      
-                          <!-- Symbol Column -->
-                          <ng-container matColumnDef="marital_status">
-                            <th mat-header-cell *matHeaderCellDef> Married</th>
-                            <td mat-cell *matCellDef="let element"> {{element.marital_status}} </td>
-                          </ng-container>
-                          <ng-container matColumnDef="education_status">
-                            <th mat-header-cell *matHeaderCellDef> Education</th>
-                            <td mat-cell *matCellDef="let element"> {{element.education_status}} </td>
-                          </ng-container>
-                          <ng-container matColumnDef="job">
-                            <th mat-header-cell *matHeaderCellDef> Job</th>
-                            <td mat-cell *matCellDef="let element"> {{element.job}} </td>
-                          </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
-                      </table>
-                    
-                      <mat-paginator #paginator2 [pageSizeOptions]="[5, 10, 20]"
-                                     showFirstLastButtons
-                                     aria-label="Select page of periodic elements">
-                      </mat-paginator>
-                    </div>
-              </div>
-              </mat-tab>
-            </mat-tab-group>
-        </mat-grid-tile>
-        
-      </mat-grid-list>
+            <mat-form-field appearance="outline" class="family-search">
+              <mat-label>Search family name</mat-label>
+              <input matInput type="search" (input)="applyFamilyFilter($event)" placeholder="e.g. Joseph">
+            </mat-form-field>
+          </div>
+
+          <div class="table-wrapper mat-elevation-z2">
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element">
+                  <a [routerLink]="['/family', element.id]">{{ element.id }}</a>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Head Name </th>
+                <td mat-cell *matCellDef="let element"> {{ element.family_head_name }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="familyname">
+                <th mat-header-cell *matHeaderCellDef> Family Name </th>
+                <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="no_of_members">
+                <th mat-header-cell *matHeaderCellDef> Members </th>
+                <td mat-cell *matCellDef="let element"> {{ element.no_of_members }} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator
+              #paginator1
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+              aria-label="Select page of families">
+            </mat-paginator>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Members">
+          <div class="table-toolbar">
+            <div>
+              <h3>Members in this unit</h3>
+              <p>Search by member name to find a person quickly.</p>
+            </div>
+            <mat-form-field appearance="outline" class="family-search">
+              <mat-label>Search member name</mat-label>
+              <input matInput type="search" (input)="applyMemberFilter($event)" placeholder="e.g. Joseph">
+            </mat-form-field>
+          </div>
+
+          <div class="table-wrapper mat-elevation-z2">
+            <table mat-table [dataSource]="dataSource2">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="dob">
+                <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
+                <td mat-cell *matCellDef="let element"> {{ element.dob }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef> Gender </th>
+                <td mat-cell *matCellDef="let element"> {{ element.gender }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Phone </th>
+                <td mat-cell *matCellDef="let element"> {{ element.phone }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="mail">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element"> {{ element.mail }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="marital_status">
+                <th mat-header-cell *matHeaderCellDef> Married </th>
+                <td mat-cell *matCellDef="let element"> {{ element.marital_status }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="education_status">
+                <th mat-header-cell *matHeaderCellDef> Education </th>
+                <td mat-cell *matCellDef="let element"> {{ element.education_status }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="job">
+                <th mat-header-cell *matHeaderCellDef> Job </th>
+                <td mat-cell *matCellDef="let element"> {{ element.job }} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+            </table>
+
+            <mat-paginator
+              #paginator2
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+              aria-label="Select page of members">
+            </mat-paginator>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </main>
+  </div>
 </div>
+

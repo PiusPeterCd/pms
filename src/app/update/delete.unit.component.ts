@@ -42,8 +42,8 @@ export interface DialogData {
         {value: '4', viewValue: 'Block 4'},
         {value: '5', viewValue: 'Block 5'},
       ];
-      units:any=[]
-      selectedunit=new unit('','','','','','','','','','','','','','');
+      units:any[] = [];
+      selectedunit = new unit('','','','','','','','','','','','','','');
     errorMessage: string='';
     constructor(
       private apiservice:ApiService,
@@ -52,12 +52,12 @@ export interface DialogData {
     ) {
     }
     ngOnInit(){
-      this.apiservice.getUnits().subscribe(response => {
-        this.units=response;
+      this.apiservice.getUnits().subscribe((response: any) => {
+        this.units = Array.isArray(response) ? response : [];
       });
     }
     onSelectChange(event: any){
-      console.log(event);
+      this.errorMessage = '';
       this.units.forEach((unit: unit)=> {
         if(unit.id==event.source.value){
           this.selectedunit=unit;
@@ -65,7 +65,7 @@ export interface DialogData {
       });
     }
     onNoClick(): void {
-        if(this.selectedunit.id ==undefined){
+        if(!this.selectedunit || this.selectedunit.id == undefined || this.selectedunit.id === ''){
             this.errorMessage="select the unit";
         }else{        
           this.apiservice.deleteunit(this.selectedunit.id).subscribe((response: any) => {

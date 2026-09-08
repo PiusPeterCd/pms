@@ -39,7 +39,7 @@ export interface DialogData {
   })
   export class UpdateMemberDialog {
     displayedColumns: string[] = ['id', 'name','dob', 'update', 'delete'];
-  members:any=[]
+  members:any[] = [];
   dataSource:any;
   id:any='';
  
@@ -51,13 +51,17 @@ export interface DialogData {
     ) {
     }
     ngOnInit(){
-      this.id=this.data;
-      this.apiservice.getFamilyMembers(this.id).subscribe(response => {
-        this.members=response;
+      this.id = this.data;
+      this.dataSource = new MatTableDataSource(this.members);
+
+      if (!this.id) {
+        return;
+      }
+
+      this.apiservice.getFamilyMembers(this.id).subscribe((response: any) => {
+        this.members = Array.isArray(response) ? response : [];
         this.dataSource = new MatTableDataSource(this.members);
-        });
-        
-      
+      });
     }
     onSelectChange(event: any){
       console.log(event);
@@ -71,12 +75,13 @@ export interface DialogData {
         const dialogRef = this.dialog.open(UpdateDetailsDialog, {
          data:element
         });
-        dialogRef.afterClosed().subscribe(result => {
-        this.apiservice.getFamilyMembers(this.id).subscribe((response)=>{
-          this.members=response;
-          this.update_no(this.members.length)
+        dialogRef.afterClosed().subscribe(() => {
+          this.apiservice.getFamilyMembers(this.id).subscribe((response:any) => {
+            this.members = Array.isArray(response) ? response : [];
+            this.dataSource = new MatTableDataSource(this.members);
+            this.update_no(this.members.length);
+          });
         });
-    });
     }
     onAdd(): void {
       var newmember:any={}
@@ -88,27 +93,34 @@ export interface DialogData {
          data:newmember
         });
 
-    dialogRef.afterClosed().subscribe(result => {
-        this.apiservice.getFamilyMembers(this.id).subscribe((response)=>{
-          this.members=response;
-          this.update_no(this.members.length)
-        });
+    dialogRef.afterClosed().subscribe(() => {
+      this.apiservice.getFamilyMembers(this.id).subscribe((response:any) => {
+        this.members = Array.isArray(response) ? response : [];
+        this.dataSource = new MatTableDataSource(this.members);
+        this.update_no(this.members.length)
+      });
     });
   }
   update_no(number:any):void{
-    this.apiservice.getFamilyDetails(this.id).subscribe((family:any)=>{
-      family.no_of_members=number;
-      this.apiservice.updatefamily(family.id,family).subscribe((res)=>{
-      })
+    if (!this.id) {
+      return;
+    }
+
+    this.apiservice.getFamilyDetails(this.id).subscribe((family:any) => {
+      if (!family) {
+        return;
+      }
+      family.no_of_members = number;
+      this.apiservice.updatefamily(family.id, family).subscribe(() => {});
     });
   }
     onDelete(element: any): void {
-     this.apiservice.deletemember(element.id).subscribe((response)=>{
-      this.apiservice.getFamilyMembers(this.id).subscribe((response)=>{
-        this.members=response;
-        this.update_no(this.members.length)
+     this.apiservice.deletemember(element.id).subscribe(() => {
+      this.apiservice.getFamilyMembers(this.id).subscribe((response:any) => {
+        this.members = Array.isArray(response) ? response : [];
+        this.dataSource = new MatTableDataSource(this.members);
+        this.update_no(this.members.length);
       });
-    
      })
   }
 }

@@ -46,7 +46,32 @@ export interface DialogData {
     ],
   })
   export class AddMemberDialog {
-     member:any=new Member('','','','','','','','','','','','','','',false,'','','','','','','','','');
+     member: any = {
+      id: '',
+      familyid: '',
+      unitid: '',
+      name: '',
+      dob: '',
+      gender: '',
+      phone: '',
+      mail: '',
+      baptized_date: '',
+      baptized_parish: '',
+      confirmation_date: '',
+      confirmation_parish: '',
+      father: '',
+      mother: '',
+      marital_status: false,
+      spouse_name: '',
+      marriage_date: '',
+      marriage_parish: '',
+      education_status: '',
+      qualification: '',
+      workplace: '',
+      job: '',
+      parish_association: [],
+      photo_url: ''
+    };
     constructor(
         private _formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<AddMemberDialog>,
@@ -84,9 +109,13 @@ export interface DialogData {
         mail: ['']
       });
     onNoClick(): void {
-      if(this.member.name!==undefined && this.member.name!=='')
-      this.dialogRef.close(this.member);
-        }
+      if (this.member && this.member.name !== undefined && this.member.name !== '') {
+        this.member.parish_association = Array.isArray(this.member.parish_association)
+          ? this.member.parish_association
+          : [];
+        this.dialogRef.close(this.member);
+      }
+    }
     
   }
   

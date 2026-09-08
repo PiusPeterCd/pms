@@ -5,12 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { RouterLink } from '@angular/router';
 import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [ MatButtonModule, MatIconModule,CdkAccordionModule,HttpClientModule,MatGridListModule],
+  imports: [ MatButtonModule, MatIconModule,CdkAccordionModule,HttpClientModule,MatGridListModule, RouterLink],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css'
 })
@@ -21,8 +22,8 @@ export class ViewComponent {
   //private parishUrl="http://localhost:3000/api/getparish";
   private blockUrl="/assets/data/blocks.json";
   private http=inject(HttpClient)
-  parish:any;
-  blocks:any;
+  parish: any = { vicar: '', leaders: [], coordinators: [] };
+  blocks: any[] = [];
   // items = ['Block 1', 'Block 2', 'Block 3', 'Block 4', 'Block 5'];
   // units=[{
   //   'id':1,
@@ -37,18 +38,17 @@ constructor(public apiService:ApiService){
 }
   fetchParish(){
     this.http.get(this.parishUrl).subscribe((res:any)=>{
-      this.parish=res as any;
+      this.parish = res as any;
     })
   }
   fetchBlock(){
     this.http.get(this.blockUrl).subscribe((res:any)=>{
-      this.blocks=res;
+      this.blocks = res || [];
       this.blocks.forEach((block: any) => {
-        block.units=[]
+        block.units = block.units || [];
         this.apiService.getUnitbyBlock(block.block_id).subscribe((response: any) => {
-          block.units=response;
+          block.units = response || [];
         });
-        
       });
     })
   }

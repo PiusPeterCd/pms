@@ -49,7 +49,32 @@ export interface DialogData {
     ],
   })
   export class UpdateDetailsDialog {
-     member:any=new Member('','','','','','','','','','','','','','',false,'','','','','','','','','');
+     member: any = {
+      id: '',
+      familyid: '',
+      unitid: '',
+      name: '',
+      dob: '',
+      gender: '',
+      phone: '',
+      mail: '',
+      baptized_date: '',
+      baptized_parish: '',
+      confirmation_date: '',
+      confirmation_parish: '',
+      father: '',
+      mother: '',
+      marital_status: false,
+      spouse_name: '',
+      marriage_date: '',
+      marriage_parish: '',
+      education_status: '',
+      qualification: '',
+      workplace: '',
+      job: '',
+      parish_association: [],
+      photo_url: ''
+    };
     heading: string = '';
     constructor(
         private _formBuilder: FormBuilder,
@@ -94,12 +119,19 @@ export interface DialogData {
         tdate: ['']
       });
  ngOnInit(){
-        this.member=this.data;
-        if(this.member.name==undefined){
+        this.member = this.data || this.member;
+        if(this.member.name==undefined || this.member.name==''){
           this.heading="ADD MEMBER"
+          this.member.parish_association = Array.isArray(this.member.parish_association)
+            ? this.member.parish_association
+            : [];
         }else{
           this.heading="UPDATE MEMBER"
-          this.member.parish_association=this.member.parish_association.split(',')
+          this.member.parish_association = typeof this.member.parish_association === 'string'
+            ? this.member.parish_association.split(',').map((item: string) => item.trim()).filter((item: string) => item)
+            : Array.isArray(this.member.parish_association)
+              ? this.member.parish_association
+              : [];
         }
       
     }
@@ -120,17 +152,19 @@ export interface DialogData {
       // this.member.baptized_date=this.formatDate(this.member.baptized_date)
       // this.member.confirmation_date=this.formatDate(this.member.confirmation_date)
       // this.member.marriage_date=this.formatDate(this.member.marriage_date)
-      if(this.member.parish_association)
-       this.member.parish_association=this.member.parish_association.toLocaleString()
-     if(this.heading=='ADD MEMBER'){
-      this.apiService.addmember(this.member).subscribe((response)=>{
-        this.dialogRef.close(this.member);
-      });
-     }else{
-      this.apiService.updatemember(this.member.id,this.member).subscribe((response)=>{
-        this.dialogRef.close();
-      });
-     }
+      if (Array.isArray(this.member.parish_association)) {
+        this.member.parish_association = this.member.parish_association.join(',');
+      }
+
+      if(this.heading=='ADD MEMBER'){
+        this.apiService.addmember(this.member).subscribe((response)=>{
+          this.dialogRef.close(this.member);
+        });
+      }else{
+        this.apiService.updatemember(this.member.id,this.member).subscribe((response)=>{
+          this.dialogRef.close();
+        });
+      }
     
   }
 }

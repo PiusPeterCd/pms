@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -11,12 +13,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   selector: 'app-certificate',
   standalone: true,
   templateUrl: './certificate.component.html',
-  imports: [MatSelectModule, MatInputModule, MatButtonModule, MatFormFieldModule],
-  styleUrls: ['./certificate.component.css']
+  imports: [CommonModule, FormsModule, MatSelectModule, MatInputModule, MatButtonModule, MatFormFieldModule],
+  styleUrls: ['./certificate.component.css'],
+  providers: [DatePipe]
 })
 export class CertificateComponent {
   name: string = ''; // This would be dynamically populated
   date: string = new Date().toLocaleDateString();
+  certificateNo: number = Math.floor(100000 + Math.random() * 900000);
 
   viewCertificate: boolean = false;
 
@@ -51,13 +55,9 @@ export class CertificateComponent {
    * indicating that the certificate should be displayed.
    */
   generateCertificate() {
-    this.viewCertificate = true
-    
-  } 
-  
-
-
-
+    this.certificateNo = Math.floor(100000 + Math.random() * 900000);
+    this.viewCertificate = true;
+  }
 
   generatePDF() {
     const DATA = document.getElementById('certificate');

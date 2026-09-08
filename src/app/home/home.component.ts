@@ -8,7 +8,7 @@ import { CertificateComponent } from '../certificate/certificate.component';
   standalone: true,
   imports: [MatTabsModule,ViewComponent,UpdateComponent,CertificateComponent],
   templateUrl:'./home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
 
