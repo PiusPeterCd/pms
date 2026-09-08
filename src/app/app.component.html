@@ -9,8 +9,16 @@
     </div>
     <nav class="main-nav" aria-label="Main navigation">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-      <a routerLink="/addunit" routerLinkActive="active">Add family</a>
-      <a routerLink="/updateunit" routerLinkActive="active">Manage records</a>
+      @if (commonService.isAdmin()) {
+        <a routerLink="/addunit" routerLinkActive="active">Add family</a>
+        <a routerLink="/updateunit" routerLinkActive="active">Manage records</a>
+      }
+      @if (commonService.userRole()) {
+        <div class="account-menu">
+          <span class="account-role">{{ commonService.userRole() }} account</span>
+          <button type="button" (click)="logout()">Log out</button>
+        </div>
+      }
     </nav>
   </header>
 

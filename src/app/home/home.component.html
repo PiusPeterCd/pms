@@ -1,5 +1,5 @@
 <div class="home-page">
-    @if (!isLoggedIn) {
+    @if (!commonService.userRole()) {
     <section class="welcome-shell">
         <div class="welcome-main">
             <div class="welcome-copy">
@@ -67,6 +67,7 @@
         </div>
     </section>
     } @else {
+    @if (commonService.isAdmin()) {
     <header class="hero">
         <div class="hero-copy">
             <p class="eyebrow">Parish management portal</p>
@@ -125,5 +126,15 @@
             </ng-template>
         </mat-tab>
     </mat-tab-group>
+    } @else {
+    <section class="member-view-shell">
+        <div class="member-view-heading">
+            <p class="eyebrow">Member access</p>
+            <h2>Parish family directory</h2>
+            <p>Browse family units, members, and parish leadership information.</p>
+        </div>
+        <app-view></app-view>
+    </section>
+    }
     }
 </div>

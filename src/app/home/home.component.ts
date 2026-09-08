@@ -4,6 +4,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ViewComponent } from '../view/view.component';
 import { UpdateComponent } from '../update/update.component';
 import { CertificateComponent } from '../certificate/certificate.component';
+import { CommonService } from '../common.service';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -16,13 +17,27 @@ export class HomeComponent {
   password = '';
   loginError = '';
   isLoggedIn = false;
+  userRole: 'admin' | 'member' | null = null;
 
-  readonly validUsername = 'admin';
+  readonly adminUsername = 'admin';
+  readonly memberUsername = 'member';
   readonly validPassword = 'carmel2026';
 
+  constructor(public commonService: CommonService) {}
+
   login(): void {
-    if (this.username === this.validUsername && this.password === this.validPassword) {
+    if (this.password === this.validPassword && this.username === this.adminUsername) {
       this.isLoggedIn = true;
+      this.userRole = 'admin';
+      this.commonService.setUserRole('admin');
+      this.loginError = '';
+      return;
+    }
+
+    if (this.password === this.validPassword && this.username === this.memberUsername) {
+      this.isLoggedIn = true;
+      this.userRole = 'member';
+      this.commonService.setUserRole('member');
       this.loginError = '';
       return;
     }
@@ -32,6 +47,8 @@ export class HomeComponent {
 
   logout(): void {
     this.isLoggedIn = false;
+    this.userRole = null;
+    this.commonService.clearUserRole();
     this.username = '';
     this.password = '';
   }

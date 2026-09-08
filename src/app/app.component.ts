@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ViewComponent } from './view/view.component';
 import { RouterModule } from '@angular/router';
@@ -18,4 +19,11 @@ import { ApiService } from './api.service';
 })
 export class AppComponent {
   title = 'pms';
+
+  constructor(public commonService: CommonService, private router: Router) {}
+
+  logout(): void {
+    this.commonService.clearUserRole();
+    this.router.navigate(['/']);
+  }
 }

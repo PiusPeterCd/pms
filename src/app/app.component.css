@@ -65,6 +65,39 @@
 	color: #fff;
 }
 
+.account-menu {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-left: auto;
+	padding-left: 16px;
+	border-left: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.account-role {
+	color: rgba(255, 255, 255, 0.84);
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.account-menu button {
+	padding: 7px 12px;
+	border: 1px solid rgba(255, 255, 255, 0.6);
+	border-radius: 6px;
+	background: transparent;
+	color: #fff;
+	cursor: pointer;
+	font: inherit;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.account-menu button:hover {
+	background: #fff;
+	color: #2f6b40;
+}
+
 .content {
 	min-height: calc(100vh - 120px);
 }
@@ -95,5 +128,15 @@
 		flex: 0 0 auto;
 		padding: 0 12px;
 		font-size: 12px;
+	}
+
+	.account-menu {
+		flex: 0 0 auto;
+		margin-left: 8px;
+		padding-left: 8px;
+	}
+
+	.account-role {
+		display: none;
 	}
 }

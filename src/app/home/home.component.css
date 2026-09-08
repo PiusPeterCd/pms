@@ -202,6 +202,31 @@
     object-fit: cover;
 }
 
+.member-view-shell {
+    overflow: hidden;
+    border: 1px solid #e2e8e3;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+}
+
+.member-view-heading {
+    padding: 24px 28px 6px;
+    background: #fff;
+}
+
+.member-view-heading h2 {
+    margin: 0 0 6px;
+    color: #2f3e46;
+    font-size: 26px;
+}
+
+.member-view-heading p:last-child {
+    margin: 0;
+    color: #667085;
+    font-size: 14px;
+}
+
 .home-page {
     min-height: 100vh;
     padding: 24px 50px 48px;
