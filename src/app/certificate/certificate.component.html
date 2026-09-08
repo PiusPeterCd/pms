@@ -1,12 +1,58 @@
 <div>
-  
-  <button (click)="generatePDF()">Download PDF</button>
-  <div id="certificate" style="border:3px solid blue">
-  <h1>Certificate of Baptism</h1>
-  <p>This is to certify that</p>
-  <h2>{{name}}</h2>
-  <p>has successfully completed the course.</p>
-  <p>Date: {{date}}</p>
-</div>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter Name</mat-label>
+    <input matInput [(ngModel)]="certificate.name" placeholder="Name">
+  </mat-form-field>
 
+  <mat-form-field appearance="fill">
+    <mat-label>Enter Certificate Date</mat-label>
+    <input matInput [(ngModel)]="certificate.date" placeholder="Date">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter Parish Name</mat-label>
+    
+    <input matInput [(ngModel)]="certificate.parish" placeholder="Parish Name" value="Mount Carmel Church, Mamangalam">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter Priest Name</mat-label>
+    <input matInput [(ngModel)]="certificate.priest" placeholder="Priest Name">
+  </mat-form-field>
+<br/> 
+  <mat-form-field appearance="fill">
+    <mat-label>Select Certificate Type</mat-label>
+    <mat-select [(ngModel)]="certificate.type">
+      <mat-option value="baptism">Baptism Certificate</mat-option>  
+      <mat-option value="confirmation">Confirmation Certificate</mat-option>
+      <mat-option value="first-communion">First Communion Certificate</mat-option>
+      <mat-option value="marriage">Marriage Certificate</mat-option>
+      <mat-option value="death">Death Certificate</mat-option>
+      <mat-option value="sacrament">Sacrament Certificate</mat-option>
+      <mat-option value="other">Other</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br/> 
+  <button mat-raised-button color="primary" type="submit" (click)="generateCertificate()">Submit</button>
+@if(viewCertificate) {
+  <div>
+    <button (click)="generatePDF()">Download PDF</button>
+    <div id="certificate" style="border:3px solid blue">
+      <h1>Certificate of {{certificate.type}}</h1>
+      <p>This is to certify that</p>
+      <h2>{{certificate.name}}</h2>
+      <p>Has got {{certificate.type}} on {{certificate.date}}</p>
+      <p>In the parish of {{certificate.parish}}</p>
+      <p>Priest: {{certificate.priest}}</p>
+      <p>Certificate No: {{certificateNo}}</p>
+      <script>
+        certificateNo = Math.floor(100000 + Math.random() * 900000);
+      </script>
+      <p>Issued on: {{ issuedDate | date:'fullDate' }}</p>
+      <p>Signature of the Priest: {{signature}}</p> 
+      <p>Seal: {{seal}}</p>
+      <p>Note: This certificate is valid only if signed by the parish priest.</p>
+    </div>
+  </div>
+}
 </div>
