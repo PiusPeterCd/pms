@@ -5,6 +5,7 @@ import { ViewComponent } from '../view/view.component';
 import { UpdateComponent } from '../update/update.component';
 import { CertificateComponent } from '../certificate/certificate.component';
 import { CommonService } from '../common.service';
+import { ApiService } from '../api.service';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -19,36 +20,36 @@ export class HomeComponent {
   isLoggedIn = false;
   userRole: 'admin' | 'member' | null = null;
 
-  readonly adminUsername = 'admin';
-  readonly memberUsername = 'member';
-  readonly validPassword = 'carmel2026';
-
-  constructor(public commonService: CommonService) {}
+  constructor(public commonService: CommonService, private apiService: ApiService) {}
 
   login(): void {
-    if (this.password === this.validPassword && this.username === this.adminUsername) {
-      this.isLoggedIn = true;
-      this.userRole = 'admin';
-      this.commonService.setUserRole('admin');
-      this.loginError = '';
-      return;
-    }
-
-    if (this.password === this.validPassword && this.username === this.memberUsername) {
-      this.isLoggedIn = true;
-      this.userRole = 'member';
-      this.commonService.setUserRole('member');
-      this.loginError = '';
-      return;
-    }
-
-    this.loginError = 'Incorrect username or password.';
+    this.loginError = '';
+    this.apiService.login(this.username, this.password).subscribe({
+      next: response => {
+        this.isLoggedIn = true;
+        this.userRole = response.role;
+        this.commonService.setSession(response.role, response.token);
+        this.password = '';
+      },
+      error: error => {
+        this.isLoggedIn = false;
+        this.userRole = null;
+        this.loginError = error.status === 0
+          ? 'Unable to reach the login service.'
+          : 'Incorrect username or password.';
+      }
+    });
   }
 
   logout(): void {
     this.isLoggedIn = false;
     this.userRole = null;
-    this.commonService.clearUserRole();
+    const token = this.commonService.authToken();
+    if (token) {
+      this.apiService.logout(token).subscribe({ complete: () => this.commonService.clearUserRole() });
+    } else {
+      this.commonService.clearUserRole();
+    }
     this.username = '';
     this.password = '';
   }

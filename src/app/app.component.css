@@ -98,6 +98,85 @@
 	color: #2f6b40;
 }
 
+.settings-button {
+	margin-right: 2px;
+}
+
+.settings-panel {
+	position: absolute;
+	top: 120px;
+	right: 42px;
+	z-index: 20;
+	width: min(330px, calc(100vw - 32px));
+	padding: 20px;
+	border: 1px solid #e2e8e3;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+	color: #1f2937;
+}
+
+.settings-panel h2 {
+	margin: 0 0 6px;
+	font-size: 18px;
+}
+
+.settings-panel p {
+	margin: 0 0 16px;
+	color: #667085;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+.settings-panel label {
+	display: block;
+	margin: 12px 0 5px;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.settings-panel input,
+.settings-panel select {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 9px 10px;
+	border: 1px solid #d0d5dd;
+	border-radius: 6px;
+	background: #fff;
+	font: inherit;
+}
+
+.settings-panel .settings-error,
+.settings-panel .settings-message {
+	margin: 10px 0 0;
+	font-weight: 600;
+}
+
+.settings-panel .settings-error {
+	color: #b42318;
+}
+
+.settings-panel .settings-message {
+	color: #2f6b40;
+}
+
+.save-settings-button {
+	width: 100%;
+	margin-top: 16px;
+	padding: 10px;
+	border: 0;
+	border-radius: 6px;
+	background: #2f6b40;
+	color: #fff;
+	cursor: pointer;
+	font: inherit;
+	font-weight: 700;
+}
+
+.save-settings-button:hover {
+	background: #245532;
+}
+
 .content {
 	min-height: calc(100vh - 120px);
 }
@@ -138,5 +217,10 @@
 
 	.account-role {
 		display: none;
+	}
+
+	.settings-panel {
+		top: 108px;
+		right: 16px;
 	}
 }

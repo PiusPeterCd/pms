@@ -60,11 +60,104 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
+const fsp = fs.promises;
+const crypto = require('crypto');
 const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
+
+const users = new Map([
+  ['admin', { password: 'carmel2026', role: 'admin' }],
+  ['member', { password: 'carmel2026', role: 'member' }]
+]);
+const sessions = new Map();
+
+app.post('/auth/login', (req, res) => {
+  const username = String(req.body?.username ?? '').trim();
+  const password = String(req.body?.password ?? '');
+  const user = users.get(username);
+
+  if (!user || user.password !== password) {
+    return res.status(401).json({ error: 'Incorrect username or password.' });
+  }
+
+  const token = crypto.randomBytes(32).toString('hex');
+  sessions.set(token, { username, role: user.role });
+  return res.status(200).json({ token, username, role: user.role });
+});
+
+app.post('/auth/logout', (req, res) => {
+  const token = req.headers.authorization?.startsWith('Bearer ')
+    ? req.headers.authorization.slice(7)
+    : '';
+  sessions.delete(token);
+  return res.status(204).send();
+});
+
+app.get('/auth/session', (req, res) => {
+  const token = req.headers.authorization?.startsWith('Bearer ')
+    ? req.headers.authorization.slice(7)
+    : '';
+  const session = sessions.get(token);
+
+  if (!session) {
+    return res.status(401).json({ error: 'Session expired.' });
+  }
+
+  return res.status(200).json(session);
+});
+
+app.put('/auth/password', (req, res) => {
+  const token = req.headers.authorization?.startsWith('Bearer ')
+    ? req.headers.authorization.slice(7)
+    : '';
+  const session = sessions.get(token);
+
+  if (!session || session.role !== 'admin') {
+    return res.status(403).json({ error: 'Only an administrator can change passwords.' });
+  }
+
+  const username = String(req.body?.username ?? '').trim();
+  const password = String(req.body?.password ?? '');
+  const user = users.get(username);
+
+  if (!user || (username !== 'admin' && username !== 'member')) {
+    return res.status(400).json({ error: 'Only the admin and member accounts can be changed.' });
+  }
+
+  if (password.length < 8) {
+    return res.status(400).json({ error: 'Password must be at least 8 characters.' });
+  }
+
+  user.password = password;
+
+  for (const [sessionToken, sessionData] of sessions) {
+    if (sessionData.username === username && sessionToken !== token) {
+      sessions.delete(sessionToken);
+    }
+  }
+
+  return res.status(200).json({ message: `Password updated for ${username}.` });
+});
+
+function isRecord(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function hasRequiredFields(value, fields) {
+  return isRecord(value) && fields.every((field) => String(value[field] ?? '').trim() !== '');
+}
+
+async function readJsonFile(fileName) {
+  const data = await fsp.readFile(fileName, 'utf8');
+  return JSON.parse(data);
+}
+
+async function writeJsonFile(fileName, data) {
+  await fsp.writeFile(fileName, JSON.stringify(data, null, 2), 'utf8');
+}
 app.get('/units', (req, res) => {
   fs.readFile('units.json', 'utf8', (err, data) => {
     if (err) {
@@ -269,13 +362,25 @@ app.get('/members/:id', (req, res) => {
 
 app.post('/addunit', (req, res) => {
   const newData = req.body;
+  if (!hasRequiredFields(newData, ['id', 'name', 'block_no'])) {
+    return res.status(400).json({ error: 'id, name, and block_no are required' });
+  }
   fs.readFile('units.json', 'utf8', (err, rdata) => {
   if (err) {
     return res.status(500).json({ error: 'Failed to read data' });
   }
 
   // Parse the existing data
-  const jsonData = JSON.parse(rdata);
+  let jsonData;
+  try {
+    jsonData = JSON.parse(rdata);
+  } catch (parseError) {
+    return res.status(500).json({ error: 'Invalid units data' });
+  }
+
+  if (jsonData.some((unit) => String(unit.id) === String(newData.id))) {
+    return res.status(409).json({ error: 'A unit with this id already exists' });
+  }
 
   // Add the new data
   jsonData.push(newData);
@@ -290,13 +395,41 @@ app.post('/addunit', (req, res) => {
 
 app.post('/addfamily', (req, res) => {
   const newData = req.body;
+  if (!hasRequiredFields(newData, ['id', 'unitid', 'name'])) {
+    return res.status(400).json({ error: 'id, unitid, and name are required' });
+  }
   fs.readFile('family.json', 'utf8', (err, rdata) => {
   if (err) {
     return res.status(500).json({ error: 'Failed to read data' });
   }
 
   // Parse the existing data
-  const jsonData = JSON.parse(rdata);
+  let jsonData;
+  try {
+    jsonData = JSON.parse(rdata);
+  } catch (parseError) {
+    return res.status(500).json({ error: 'Invalid family data' });
+  }
+
+  if (jsonData.some((family) => String(family.id) === String(newData.id))) {
+    return res.status(409).json({ error: 'A family with this id already exists' });
+  }
+
+  fs.readFile('units.json', 'utf8', (unitError, unitData) => {
+    if (unitError) {
+      return res.status(500).json({ error: 'Failed to read unit data' });
+    }
+
+    let units;
+    try {
+      units = JSON.parse(unitData);
+    } catch (parseError) {
+      return res.status(500).json({ error: 'Invalid units data' });
+    }
+
+    if (!units.some((unit) => String(unit.id) === String(newData.unitid))) {
+      return res.status(400).json({ error: 'The referenced unit does not exist' });
+    }
 
   // Add the new data
   jsonData.push(newData);
@@ -306,11 +439,15 @@ app.post('/addfamily', (req, res) => {
     }
     res.send({sucess:'ok'});
   });
+  });
 });
 });
 
 app.post('/addmember', (req, res) => {
   const newData = req.body;
+  if (!hasRequiredFields(newData, ['id', 'familyid', 'unitid', 'name'])) {
+    return res.status(400).json({ error: 'id, familyid, unitid, and name are required' });
+  }
   fs.readFile('members.json', 'utf8', (err, rdata) => {
   if (err) {
     return res.status(500).json({ error: 'Failed to read data' });
@@ -320,7 +457,14 @@ app.post('/addmember', (req, res) => {
 
   try {
   const jsonData = JSON.parse(rdata);
-  JSON.parse(JSON.stringify(newData));
+  if (jsonData.some((member) => String(member.id) === String(newData.id))) {
+    return res.status(409).json({ error: 'A member with this id already exists' });
+  }
+
+  if (!jsonData.some((member) => String(member.familyid) === String(newData.familyid))) {
+    return res.status(400).json({ error: 'The referenced family does not exist' });
+  }
+
   // Add the new data
   jsonData.push(newData);
   fs.writeFile('members.json', JSON.stringify(jsonData, null, 2), (err) => {
@@ -339,41 +483,50 @@ app.post('/addmember', (req, res) => {
 app.delete('/deleteunit/:id', (req, res) => {
   const id = req.params.id;
 
-  fs.readFile('units.json', 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read data' });
-    }
-
-    // Parse the JSON data
-    let records = JSON.parse(data); 
-    records = records.filter(record => record.id !== id);
-    fs.writeFile('units.json', JSON.stringify(records, null, 2), 'utf8', (err) => { 
-      if (err) { 
-        return res.status(500).send({ message: 'Error writing file', err }); 
+  Promise.all([readJsonFile('units.json'), readJsonFile('family.json'), readJsonFile('members.json')])
+    .then(([units, families, members]) => {
+      const unitExists = units.some((unit) => String(unit.id) === String(id));
+      if (!unitExists) {
+        return res.status(404).json({ error: 'Unit not found' });
       }
-      res.status(200).send({ message: 'Record deleted successfully' }); 
-    }); 
-  });
+
+      const familyIds = families
+        .filter((family) => String(family.unitid) === String(id))
+        .map((family) => String(family.id));
+      const remainingUnits = units.filter((unit) => String(unit.id) !== String(id));
+      const remainingFamilies = families.filter((family) => String(family.unitid) !== String(id));
+      const remainingMembers = members.filter((member) =>
+        String(member.unitid) !== String(id) && !familyIds.includes(String(member.familyid))
+      );
+
+      return Promise.all([
+        writeJsonFile('units.json', remainingUnits),
+        writeJsonFile('family.json', remainingFamilies),
+        writeJsonFile('members.json', remainingMembers)
+      ]).then(() => res.status(200).json({ message: 'Unit and related records deleted successfully' }));
+    })
+    .catch((error) => res.status(500).json({ error: 'Failed to delete unit records' }));
 });
 
 app.delete('/deletefamily/:id', (req, res) => {
   const id = req.params.id;
 
-  fs.readFile('family.json', 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read data' });
-    }
-
-    // Parse the JSON data
-    let records = JSON.parse(data); 
-    records = records.filter(record => record.id !== id);
-    fs.writeFile('family.json', JSON.stringify(records, null, 2), 'utf8', (err) => { 
-      if (err) { 
-        return res.status(500).send({ message: 'Error writing file', err }); 
+  Promise.all([readJsonFile('family.json'), readJsonFile('members.json')])
+    .then(([families, members]) => {
+      const familyExists = families.some((family) => String(family.id) === String(id));
+      if (!familyExists) {
+        return res.status(404).json({ error: 'Family not found' });
       }
-      res.status(200).send({ message: 'Record deleted successfully' }); 
-    }); 
-  });
+
+      const remainingFamilies = families.filter((family) => String(family.id) !== String(id));
+      const remainingMembers = members.filter((member) => String(member.familyid) !== String(id));
+
+      return Promise.all([
+        writeJsonFile('family.json', remainingFamilies),
+        writeJsonFile('members.json', remainingMembers)
+      ]).then(() => res.status(200).json({ message: 'Family and related members deleted successfully' }));
+    })
+    .catch((error) => res.status(500).json({ error: 'Failed to delete family records' }));
 });
 
 app.delete('/deletemember/:id', (req, res) => {
@@ -385,7 +538,16 @@ app.delete('/deletemember/:id', (req, res) => {
     }
 
     // Parse the JSON data
-    let records = JSON.parse(data); 
+    let records;
+    try {
+      records = JSON.parse(data);
+    } catch (parseError) {
+      return res.status(500).json({ error: 'Invalid member data' });
+    }
+    const memberExists = records.some((record) => String(record.id) === String(id));
+    if (!memberExists) {
+      return res.status(404).json({ error: 'Member not found' });
+    }
     records = records.filter(record => record.id !== id);
     fs.writeFile('members.json', JSON.stringify(records, null, 2), 'utf8', (err) => { 
       if (err) { 

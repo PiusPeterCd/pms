@@ -10,7 +10,9 @@ import { ApiService } from './api.service';
 export class CommonService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly roleStorageKey = 'carmel-connect-role';
+  private readonly tokenStorageKey = 'carmel-connect-token';
   readonly userRole = signal<'admin' | 'member' | null>(this.readStoredRole());
+  readonly authToken = signal<string | null>(this.readStoredToken());
 
   constructor(private http: HttpClient,private apiService:ApiService) { }
 
@@ -33,10 +35,21 @@ export class CommonService {
     }
   }
 
+  setSession(role: 'admin' | 'member', token: string): void {
+    this.userRole.set(role);
+    this.authToken.set(token);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.roleStorageKey, role);
+      localStorage.setItem(this.tokenStorageKey, token);
+    }
+  }
+
   clearUserRole(): void {
     this.userRole.set(null);
+    this.authToken.set(null);
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.roleStorageKey);
+      localStorage.removeItem(this.tokenStorageKey);
     }
   }
 
@@ -51,5 +64,13 @@ export class CommonService {
 
     const storedRole = localStorage.getItem(this.roleStorageKey);
     return storedRole === 'admin' || storedRole === 'member' ? storedRole : null;
+  }
+
+  private readStoredToken(): string | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+
+    return localStorage.getItem(this.tokenStorageKey);
   }
 }

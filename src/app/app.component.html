@@ -16,10 +16,35 @@
       @if (commonService.userRole()) {
         <div class="account-menu">
           <span class="account-role">{{ commonService.userRole() }} account</span>
+          @if (commonService.isAdmin()) {
+            <button type="button" class="settings-button" (click)="settingsOpen = !settingsOpen">Settings</button>
+          }
           <button type="button" (click)="logout()">Log out</button>
         </div>
       }
     </nav>
+    @if (settingsOpen && commonService.isAdmin()) {
+      <section class="settings-panel" aria-label="Account settings">
+        <h2>Account settings</h2>
+        <p>Change the password for an existing account. Usernames cannot be changed.</p>
+        <label for="password-target">Account</label>
+        <select id="password-target" [(ngModel)]="passwordTarget">
+          <option value="admin">Admin</option>
+          <option value="member">Member</option>
+        </select>
+        <label for="new-password">New password</label>
+        <input id="new-password" type="password" [(ngModel)]="newPassword" autocomplete="new-password">
+        <label for="confirm-password">Confirm password</label>
+        <input id="confirm-password" type="password" [(ngModel)]="confirmPassword" autocomplete="new-password">
+        @if (settingsError) {
+          <p class="settings-error" role="alert">{{ settingsError }}</p>
+        }
+        @if (settingsMessage) {
+          <p class="settings-message" role="status">{{ settingsMessage }}</p>
+        }
+        <button type="button" class="save-settings-button" (click)="changePassword()">Save password</button>
+      </section>
+    }
   </header>
 
   <section class="content">

@@ -10,6 +10,38 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  login(username: string, password: string): Observable<{ token: string; username: string; role: 'admin' | 'member' }> {
+    return this.http.post<{ token: string; username: string; role: 'admin' | 'member' }>(`${this.apiUrl}/auth/login`, {
+      username,
+      password
+    });
+  }
+
+  logout(token: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/auth/logout`, {}, {
+      headers: this.authHeaders(token)
+    });
+  }
+
+  getSession(token: string): Observable<{ username: string; role: 'admin' | 'member' }> {
+    return this.http.get<{ username: string; role: 'admin' | 'member' }>(`${this.apiUrl}/auth/session`, {
+      headers: this.authHeaders(token)
+    });
+  }
+
+  changePassword(token: string, username: 'admin' | 'member', password: string): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(`${this.apiUrl}/auth/password`, {
+      username,
+      password
+    }, {
+      headers: this.authHeaders(token)
+    });
+  }
+
+  private authHeaders(token: string): HttpHeaders {
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
+  }
+
   // GET: Fetch all items
   getUnits(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/units`);
