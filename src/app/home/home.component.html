@@ -1,4 +1,72 @@
 <div class="home-page">
+    @if (!isLoggedIn) {
+    <section class="welcome-shell">
+        <div class="welcome-main">
+            <div class="welcome-copy">
+                <p class="eyebrow">Parish management portal</p>
+                <h1>Mount Carmel Church</h1>
+                <p class="hero-location">Mamangalam</p>
+                <p class="hero-description">Connect with parish families, records, leadership, and certificates in one secure place.</p>
+            </div>
+
+            <form class="login-card" (ngSubmit)="login()">
+                <p class="eyebrow">Welcome back</p>
+                <h2>Sign in to continue</h2>
+                <p class="login-description">Use your parish portal credentials to access the records.</p>
+
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" [(ngModel)]="username" autocomplete="username" required>
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" [(ngModel)]="password" autocomplete="current-password" required>
+
+                @if (loginError) {
+                    <p class="login-error" role="alert">{{ loginError }}</p>
+                }
+
+                <button class="login-button" type="submit">Login to portal</button>
+            </form>
+        </div>
+
+        <aside class="mass-panel">
+            <div class="mass-heading">
+                <p class="eyebrow">Worship schedule</p>
+                <h2>Mass timings</h2>
+                <p>Join us in prayer and celebration.</p>
+            </div>
+            <div class="mass-list">
+                <div class="mass-day">
+                    <strong>Monday - Friday</strong>
+                    <span>Holy Mass · 7:00 AM</span>
+                </div>
+                <div class="mass-day">
+                    <strong>Saturday</strong>
+                    <span>Holy Mass and Novena · 7:00 AM</span>
+                    <span>Holy Mass and Novena · 5:30 PM</span>
+                </div>
+                <div class="mass-day">
+                    <strong>Sunday</strong>
+                    <span>Holy Mass · 7:00 AM</span>
+                    <span>Holy Mass · 9:00 AM</span>
+                    <span>Holy Mass · 5:30 PM</span>
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="gallery-strip" aria-label="Parish gallery">
+        <div class="gallery-heading">
+            <p class="eyebrow">From our parish</p>
+            <h2>Community moments</h2>
+        </div>
+        <div class="gallery-images">
+            <img src="/assets/church.jpg" alt="Mount Carmel Church">
+            <img src="/assets/church1.jpg" alt="Church detail">
+            <img src="/assets/person.jpg" alt="Parish community">
+            <img src="/assets/photo.jpg" alt="Parish records">
+        </div>
+    </section>
+    } @else {
     <header class="hero">
         <div class="hero-copy">
             <p class="eyebrow">Parish management portal</p>
@@ -57,4 +125,5 @@
             </ng-template>
         </mat-tab>
     </mat-tab-group>
+    }
 </div>
